@@ -1,0 +1,16 @@
+[
+  {
+    "Addition": "Cream",
+    "Price": {
+      "Value": 0.5,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Addition": "Vanilla",
+    "Price": {
+      "Value": 0.35,
+      "Currency": "GBP"
+    }
+  }
+]

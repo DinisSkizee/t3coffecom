@@ -1,0 +1,122 @@
+[
+  {
+    "Drink": "Capuccino",
+    "Size": 0,
+    "Price": {
+      "Value": 2.2,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Espresso",
+    "Size": 0,
+    "Price": {
+      "Value": 1.5,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Latte",
+    "Size": 0,
+    "Price": {
+      "Value": 2.35,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Macciato",
+    "Size": 0,
+    "Price": {
+      "Value": 2.4,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Mocha",
+    "Size": 0,
+    "Price": {
+      "Value": 2.55,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Capuccino",
+    "Size": 1,
+    "Price": {
+      "Value": 2.6,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Espresso",
+    "Size": 1,
+    "Price": {
+      "Value": 1.7,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Latte",
+    "Size": 1,
+    "Price": {
+      "Value": 2.65,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Macciato",
+    "Size": 1,
+    "Price": {
+      "Value": 2.7,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Mocha",
+    "Size": 1,
+    "Price": {
+      "Value": 2.85,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Capuccino",
+    "Size": 2,
+    "Price": {
+      "Value": 3.0,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Espresso",
+    "Size": 2,
+    "Price": {
+      "Value": 2.0,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Latte",
+    "Size": 2,
+    "Price": {
+      "Value": 3.15,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Macciato",
+    "Size": 2,
+    "Price": {
+      "Value": 3.2,
+      "Currency": "GBP"
+    }
+  },
+  {
+    "Drink": "Mocha",
+    "Size": 2,
+    "Price": {
+      "Value": 3.35,
+      "Currency": "GBP"
+    }
+  }
+]
