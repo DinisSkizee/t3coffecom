@@ -19,10 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
-      "@public/*": ["public/*"],
-      "@pages/*": ["src/app/*"],
-      "@styles/*": ["src/styles/*"],
-      "@components/*": ["/src/components/*"]
+      "@public/*": ["./public/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/components/*"],
+      "@gql/*": ["./src/gql/*"],
+      "@lib/*": ["./src/lib/*"]
     }
   },
   "include": [
@@ -31,7 +33,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "babel.config.js"
   ],
   "exclude": ["node_modules"]
 }
