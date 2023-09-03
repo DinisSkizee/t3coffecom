@@ -16,7 +16,7 @@ export const BgImage = tw.div`
 `;
 
 export default function Home() {
-  const { data, loading, error } = useGetProductsQuery();
+  const { data, loading } = useGetProductsQuery();
   return (
     <>
       <Head>
@@ -27,7 +27,9 @@ export default function Home() {
         <div className="min-h-screen"></div>
       </div>
       {loading && <div>Loading...</div>}
-      {data?.products?.edges?.map((product) => <div>{product.node.title}</div>)}
+      {data?.products?.edges?.map((product) => (
+        <div key={product.node.id}>{product.node.title}</div>
+      ))}
       <Link
         href="/start"
         className="absolute left-[50%] top-[50%] z-50 flex min-h-screen -translate-x-[50%] -translate-y-[50%] flex-col items-center justify-center gap-2"
