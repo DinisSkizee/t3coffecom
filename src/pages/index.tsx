@@ -1,6 +1,7 @@
 import Head from "next/head";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
+import { useGetProductsQuery } from "@gql/schema";
 
 export const BgImage = tw.div`
   absolute
@@ -15,6 +16,7 @@ export const BgImage = tw.div`
 `;
 
 export default function Home() {
+  const { data, loading, error } = useGetProductsQuery();
   return (
     <>
       <Head>
@@ -24,6 +26,8 @@ export default function Home() {
         <BgImage />
         <div className="min-h-screen"></div>
       </div>
+      {loading && <div>Loading...</div>}
+      {data?.products?.edges?.map((product) => <div>{product.node.title}</div>)}
       <Link
         href="/start"
         className="absolute left-[50%] top-[50%] z-50 flex min-h-screen -translate-x-[50%] -translate-y-[50%] flex-col items-center justify-center gap-2"
@@ -96,7 +100,7 @@ export default function Home() {
         </svg>
 
         {/* Title */}
-        <h2 className="drop-shadow-strDrop text-5xl font-bold text-[#2D140D]">
+        <h2 className="text-5xl font-bold text-[#2D140D] drop-shadow-strDrop">
           CoffeeCOM
         </h2>
       </Link>
