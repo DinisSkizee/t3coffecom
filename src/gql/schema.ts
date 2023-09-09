@@ -1,4 +1,4 @@
-/* eslint-disable */
+/*eslint-disable*/
 import {
   GraphQLResolveInfo,
   GraphQLScalarType,
@@ -15113,6 +15113,7 @@ export const CheckoutCreateDocument = gql`
     checkoutCreate(input: { lineItems: { variantId: $variant, quantity: 1 } }) {
       checkout {
         webUrl
+        id
       }
     }
   }
@@ -15584,7 +15585,7 @@ export type CheckoutCreateMutation = {
   __typename?: "Mutation";
   checkoutCreate?: {
     __typename?: "CheckoutCreatePayload";
-    checkout?: { __typename?: "Checkout"; webUrl: any } | null;
+    checkout?: { __typename?: "Checkout"; webUrl: any; id: string } | null;
   } | null;
 };
 
