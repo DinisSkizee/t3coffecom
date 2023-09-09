@@ -37,13 +37,13 @@ const LoginPage = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="flex h-screen w-full justify-center">
-        <div className="flex h-[896px] w-[414px] flex-col bg-white">
+      <div className="flex w-full justify-center">
+        <div className="flex h-screen w-[414px] flex-col bg-white">
           <Header />
           <div className="px-5">
             {/* Login Header */}
             <div className="mt-2 flex flex-row items-center justify-center">
-              <Link href="/start" className="hover:drop-shadow-strDrop mr-auto">
+              <Link href="/start" className="mr-auto hover:drop-shadow-strDrop">
                 <svg
                   width="8"
                   height="13"

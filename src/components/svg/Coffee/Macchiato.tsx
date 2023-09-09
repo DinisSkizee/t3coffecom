@@ -1,6 +1,6 @@
 import React from "react";
 
-const Macciato = ({ className }: { className?: string }) => {
+const Macchiato = ({ className }: { className?: string }) => {
   return (
     <svg
       viewBox="0 0 66 98"
@@ -78,4 +78,4 @@ const Macciato = ({ className }: { className?: string }) => {
   );
 };
 
-export default Macciato;
+export default Macchiato;

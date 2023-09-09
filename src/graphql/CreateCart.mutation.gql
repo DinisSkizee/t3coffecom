@@ -1,0 +1,9 @@
+mutation CreateCart {
+  cartCreate {
+    cart {
+      id
+      createdAt
+      updatedAt
+    }
+  }
+}

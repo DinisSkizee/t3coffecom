@@ -1,6 +1,6 @@
 import React from "react";
 
-const LargeCapuccino = ({ opacities }: { opacities: number }) => {
+const LargeCappuccino = ({ opacities }: { opacities: number }) => {
   return (
     <svg
       width="40"
@@ -22,4 +22,4 @@ const LargeCapuccino = ({ opacities }: { opacities: number }) => {
   );
 };
 
-export default LargeCapuccino;
+export default LargeCappuccino;

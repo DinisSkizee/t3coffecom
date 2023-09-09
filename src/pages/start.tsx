@@ -8,8 +8,8 @@ const StartPage = () => {
       <Head>
         <title>Start</title>
       </Head>
-      <div className="flex h-screen w-full justify-center">
-        <div className="flex h-[896px] w-[414px] flex-col bg-white">
+      <div className="flex w-full justify-center">
+        <div className="flex h-screen w-[414px] flex-col bg-white">
           <Header />
           {/* Cart and Background Spot */}
           <div className="relative">
