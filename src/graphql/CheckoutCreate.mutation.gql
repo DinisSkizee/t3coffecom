@@ -1,0 +1,7 @@
+mutation CheckoutCreate($variant: ID!) {
+  checkoutCreate(input: { lineItems: { variantId: $variant, quantity: 1 } }) {
+    checkout {
+      webUrl
+    }
+  }
+}

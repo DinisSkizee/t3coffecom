@@ -1,6 +1,6 @@
 [
   {
-    "Drink": "Capuccino",
+    "Drink": "Cappuccino",
     "Size": 0,
     "Price": {
       "Value": 2.2,
@@ -24,7 +24,7 @@
     }
   },
   {
-    "Drink": "Macciato",
+    "Drink": "Macchiato",
     "Size": 0,
     "Price": {
       "Value": 2.4,
@@ -40,7 +40,7 @@
     }
   },
   {
-    "Drink": "Capuccino",
+    "Drink": "Cappuccino",
     "Size": 1,
     "Price": {
       "Value": 2.6,
@@ -64,7 +64,7 @@
     }
   },
   {
-    "Drink": "Macciato",
+    "Drink": "Macchiato",
     "Size": 1,
     "Price": {
       "Value": 2.7,
@@ -80,7 +80,7 @@
     }
   },
   {
-    "Drink": "Capuccino",
+    "Drink": "Cappuccino",
     "Size": 2,
     "Price": {
       "Value": 3.0,
@@ -104,7 +104,7 @@
     }
   },
   {
-    "Drink": "Macciato",
+    "Drink": "Macchiato",
     "Size": 2,
     "Price": {
       "Value": 3.2,

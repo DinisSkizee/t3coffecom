@@ -2,18 +2,16 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Header from "../components/Header";
-import Macciato from "../components/svg/Coffee/Macciato";
+import Macchiato from "../components/svg/Coffee/Macchiato";
 import Espresso from "../components/svg/Coffee/Espresso";
 import Mocha from "../components/svg/Coffee/Mocha";
 import Latte from "../components/svg/Coffee/Latte";
-import Capuccino from "../components/svg/Coffee/Capuccino";
+import Cappuccino from "../components/svg/Coffee/Cappuccino";
 import Link from "next/link";
-import prices from "../../public/drinks_prices.json";
-import additionPrices from "../../public/additions_prices.json";
 import ThinBrownLine from "../components/ThinBrownLine";
-import SmallMacciato from "../components/svg/CoffeeSize/Macciato/SmallMacciato";
-import LargeMacciato from "../components/svg/CoffeeSize/Macciato/LargeMacciato";
-import MediumMacciato from "../components/svg/CoffeeSize/Macciato/MediumMacciato";
+import SmallMacchiato from "../components/svg/CoffeeSize/Macchiato/SmallMacchiato";
+import LargeMacchiato from "../components/svg/CoffeeSize/Macchiato/LargeMacchiato";
+import MediumMacchiato from "../components/svg/CoffeeSize/Macchiato/MediumMacchiato";
 import LargeLatte from "../components/svg/CoffeeSize/Latte/LargeLatte";
 import LargeMocha from "../components/svg/CoffeeSize/Mocha/LargeMocha";
 import LargeEspresso from "../components/svg/CoffeeSize/Espresso/LargeEspresso";
@@ -32,23 +30,24 @@ import Cream from "../components/svg/Additions/Cream";
 import Vanilla from "../components/svg/Additions/Vanilla";
 import Footer from "../components/Footer";
 import Basket from "../components/Basket";
-import SmallCapuccino from "../components/svg/CoffeeSize/Capuccino/SmallCapuccino";
-import MediumCapuccino from "../components/svg/CoffeeSize/Capuccino/MediumCapuccino";
-import LargeCapuccino from "../components/svg/CoffeeSize/Capuccino/LargeCapuccino";
+import SmallCappuccino from "../components/svg/CoffeeSize/Cappuccino/SmallCappuccino";
+import MediumCappuccino from "../components/svg/CoffeeSize/Cappuccino/MediumCappuccino";
+import LargeCappuccino from "../components/svg/CoffeeSize/Cappuccino/LargeCappuccino";
+import { useGetProductsQuery } from "~/gql/schema";
 
-const DrinkBackground = ({ drink }: { drink: string | string[] }) => {
+const DrinkBackground = ({ drink }: { drink: string }) => {
   return (
-    <div className="bg-background-light flex h-[210px] items-center justify-center">
-      {drink === "macciato" && (
-        <Macciato className="drop-shadow-strDrop h-[100px]" />
+    <div className="flex h-[210px] items-center justify-center bg-background-light">
+      {drink === "Macchiato" && (
+        <Macchiato className="h-[100px] drop-shadow-strDrop" />
       )}
-      {drink === "espresso" && (
-        <Espresso className="drop-shadow-strDrop h-[100px]" />
+      {drink === "Espresso" && (
+        <Espresso className="h-[100px] drop-shadow-strDrop" />
       )}
-      {drink === "mocha" && <Mocha className="drop-shadow-strDrop h-[100px]" />}
-      {drink === "latte" && <Latte className="drop-shadow-strDrop h-[100px]" />}
-      {drink === "Capuccino" && (
-        <Capuccino className="drop-shadow-strDrop h-[85px]" />
+      {drink === "Mocha" && <Mocha className="h-[100px] drop-shadow-strDrop" />}
+      {drink === "Latte" && <Latte className="h-[100px] drop-shadow-strDrop" />}
+      {drink === "Cappuccino" && (
+        <Cappuccino className="h-[85px] drop-shadow-strDrop" />
       )}
     </div>
   );
@@ -73,7 +72,7 @@ const DrinkDetails = ({
       <div className="flex flex-col">
         <div className="text-[20px] font-bold text-[#2D140D]">{drinkName}</div>
         <div className="text-[18px] text-[#383537]">
-          {drinkPrice.toFixed(2)} GBP
+          {Number(drinkPrice).toFixed(2)} GBP
         </div>
       </div>
       <div className="ml-auto flex flex-row items-center gap-4">
@@ -162,16 +161,16 @@ const DrinkSize = ({ newDrinkSize, opacities, drinkName }: SizeProps) => {
             <>
               {drinkName === "Latte" ? (
                 <SmallLatte opacities={opacitiesSizeHover[0]} />
-              ) : drinkName === "Capuccino" ? (
-                <SmallCapuccino opacities={opacitiesSizeHover[0]} />
+              ) : drinkName === "Cappuccino" ? (
+                <SmallCappuccino opacities={opacitiesSizeHover[0]} />
               ) : drinkName === "Mocha" ? (
                 <SmallMocha opacities={opacitiesSizeHover[0]} />
               ) : drinkName === "Espresso" ? (
                 <SmallEspresso opacities={opacitiesSizeHover[0]} />
-              ) : drinkName === "Macciato" ? (
-                <SmallMacciato opacities={opacitiesSizeHover[0]} />
+              ) : drinkName === "Macchiato" ? (
+                <SmallMacchiato opacities={opacitiesSizeHover[0]} />
               ) : (
-                <SmallMacciato opacities={opacitiesSizeHover[0]} />
+                <SmallMacchiato opacities={opacitiesSizeHover[0]} />
               )}
             </>
           )}
@@ -186,16 +185,16 @@ const DrinkSize = ({ newDrinkSize, opacities, drinkName }: SizeProps) => {
             <>
               {drinkName === "Latte" ? (
                 <MediumLatte opacities={opacitiesSizeHover[1]} />
-              ) : drinkName === "Capuccino" ? (
-                <MediumCapuccino opacities={opacitiesSizeHover[1]} />
+              ) : drinkName === "Cappuccino" ? (
+                <MediumCappuccino opacities={opacitiesSizeHover[1]} />
               ) : drinkName === "Mocha" ? (
                 <MediumMocha opacities={opacitiesSizeHover[1]} />
               ) : drinkName === "Espresso" ? (
                 <MediumEspresso opacities={opacitiesSizeHover[1]} />
-              ) : drinkName === "Macciato" ? (
-                <MediumMacciato opacities={opacitiesSizeHover[1]} />
+              ) : drinkName === "Macchiato" ? (
+                <MediumMacchiato opacities={opacitiesSizeHover[1]} />
               ) : (
-                <MediumMacciato opacities={opacitiesSizeHover[1]} />
+                <MediumMacchiato opacities={opacitiesSizeHover[1]} />
               )}
             </>
           )}
@@ -210,16 +209,16 @@ const DrinkSize = ({ newDrinkSize, opacities, drinkName }: SizeProps) => {
             <>
               {drinkName === "Latte" ? (
                 <LargeLatte opacities={opacitiesSizeHover[2]} />
-              ) : drinkName === "Capuccino" ? (
-                <LargeCapuccino opacities={opacitiesSizeHover[2]} />
+              ) : drinkName === "Cappuccino" ? (
+                <LargeCappuccino opacities={opacitiesSizeHover[2]} />
               ) : drinkName === "Mocha" ? (
                 <LargeMocha opacities={opacitiesSizeHover[2]} />
               ) : drinkName === "Espresso" ? (
                 <LargeEspresso opacities={opacitiesSizeHover[2]} />
-              ) : drinkName === "Macciato" ? (
-                <LargeMacciato opacities={opacitiesSizeHover[2]} />
+              ) : drinkName === "Macchiato" ? (
+                <LargeMacchiato opacities={opacitiesSizeHover[2]} />
               ) : (
-                <LargeMacciato opacities={opacitiesSizeHover[2]} />
+                <LargeMacchiato opacities={opacitiesSizeHover[2]} />
               )}
             </>
           )}
@@ -356,7 +355,7 @@ const Total = ({ totalAmount }: { totalAmount: number }) => {
     <div className="m-6 flex text-[28px]">
       <div className="text-[#8C746A]">Total:</div>
       <div className="ml-auto text-[30px] font-semibold text-[#2D140D]">
-        {totalAmount?.toFixed(2)}
+        {Number(totalAmount)?.toFixed(2)}
         <span className="ml-1 text-[20px] font-extrabold">GBP</span>
       </div>
     </div>
@@ -411,9 +410,9 @@ const CartButton = ({ setBasketAmount, basketAmount }: CartButtonProps) => {
             <path
               d="M1.5 9.70676L4.65 13.5712C4.7555 13.7018 4.8904 13.8081 5.04474 13.8823C5.19908 13.9565 5.36891 13.9966 5.54169 13.9998C5.71448 14.003 5.8858 13.9691 6.04302 13.9006C6.20023 13.8321 6.33931 13.7308 6.45 13.6042L16.5 2"
               stroke="#F8E9D6"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -422,66 +421,105 @@ const CartButton = ({ setBasketAmount, basketAmount }: CartButtonProps) => {
   );
 };
 
+interface ProductVariant {
+  id: string;
+  title: string;
+  price: MoneyV2;
+}
+
+interface MoneyV2 {
+  amount: number;
+}
+
 const PreferencesPage = () => {
   const router = useRouter();
 
   // Get the query parameter from the URL
   const { drink } = router.query;
 
-  const [drinkName, setDrink] = useState("");
+  const [drinkVariant, setDrinkVariant] = useState<ProductVariant | undefined>(
+    undefined,
+  );
+  const [drinkName, setDrinkName] = useState("");
   const [drinkPrice, setDrinkPrice] = useState(0.0);
   const [drinkAmount, setDrinkAmount] = useState(0);
   const [drinkSize, setDrinkSize] = useState(1);
   const [opacitiesSize, setOpacitiesSize] = useState([0.4, 1, 0.4]);
   const [sugarAmount, setSugarAmount] = useState(0);
   const [opacitiesSugar, setOpacitiesSugar] = useState([1, 0.4, 0.4, 0.4]);
-  const [additions, setAdditions] = useState([0, 0]);
+  const [additions, setAdditions] = useState<Record<string, number>>({
+    Cream: 0,
+    Vanilla: 0,
+  });
   const [opacitiesAdditions, setOpacitiesAdditions] = useState([0.4, 0.4]);
   const [totalAmount, setTotalAmount] = useState(0.0);
   const [basketAmount, setBasketAmount] = useState(0);
 
-  // Uppercase first letter in the drink name
+  const {
+    data: productsData,
+    loading: productsLoading,
+    error: productsError,
+  } = useGetProductsQuery({
+    variables: {
+      first: 100,
+    },
+  });
+
   useEffect(() => {
-    if (Array.isArray(drink) && drink.length > 0) {
-      // Check if 'drink' is an array and has elements
-      const firstString = drink[0];
-      if (typeof firstString === "string" && firstString.length > 0) {
-        // Check if the first element is a non-empty string
-        setDrink(firstString.charAt(0));
-      }
-    }
     if (typeof drink === "string") {
-      setDrink(drink.charAt(0).toUpperCase() + drink.slice(1));
+      setDrinkName(drink);
     } else {
-      setDrink("No drink parameter found");
+      setDrinkName("No drink parameter found");
     }
   }, [drink]);
 
-  // Get Drink Value
   useEffect(() => {
-    const filteredDrinkItem = prices.find(
-      (item) => item.Drink === drinkName && item.Size === drinkSize,
+    if (!productsData) return;
+
+    const sizeMapping: Record<number, string> = {
+      0: "Small",
+      1: "Medium",
+      2: "Large",
+    };
+
+    const filteredProduct = productsData.products.edges.find(
+      (edge) => edge.node.title === drinkName,
     );
-    if (filteredDrinkItem) {
-      const drinkPriceTemp = filteredDrinkItem.Price.Value;
 
-      // Check which additions are = 1, and add their corresponding value
-      const additionsTotal = additions.reduce((sum, additionIndex) => {
-        if (additions[additionIndex]) {
-          sum += additionPrices[additionIndex]?.Price?.Value ?? 0;
-        }
-        return sum;
-      }, 0);
+    const filteredVariantName = filteredProduct?.node.variants.edges.filter(
+      (variant) =>
+        variant.node.title.includes(sizeMapping[drinkSize] ?? "Medium"),
+    );
 
-      // Final Drink price
-      const finalDrinkPrice = drinkPriceTemp + additionsTotal;
-      setDrinkPrice(finalDrinkPrice);
+    console.log(additions);
+    const activeAdditions = Object.keys(additions).filter(
+      (key) => additions[key] === 1,
+    );
+
+    const filteredVariant = filteredVariantName?.find((variant) => {
+      if (
+        activeAdditions.includes("Cream") &&
+        activeAdditions.includes("Vanilla")
+      ) {
+        return variant.node.title.includes("Vanilla & Cream");
+      } else if (activeAdditions.includes("Cream")) {
+        return variant.node.title.includes("Cream");
+      } else if (activeAdditions.includes("Vanilla")) {
+        return variant.node.title.includes("Vanilla");
+      } else {
+        return variant.node.title.includes("Normal");
+      }
+    });
+
+    if (filteredVariant) {
+      setDrinkVariant(filteredVariant.node);
+      setTotalAmount(
+        (filteredVariant.node.price.amount as number) * drinkAmount,
+      );
+      setDrinkPrice(filteredVariant.node.price.amount as number);
     }
-
-    // Set new total
-    const newTotal = drinkPrice * drinkAmount;
-    setTotalAmount(newTotal);
-  }, [drinkName, drinkSize, additions, drinkPrice, drinkAmount]);
+    console.log("filteredVariant", filteredVariant);
+  }, [productsData, drinkSize, additions, drinkName, drinkAmount]);
 
   const increaseDrinkAmount = () => {
     setDrinkAmount(drinkAmount + 1);
@@ -506,9 +544,12 @@ const PreferencesPage = () => {
     setOpacitiesSugar(updatedOpacities);
   };
   const manageAdditions = (item: number) => {
-    const updatedAdditions = additions.map((value, i) =>
-      i === item ? (value === 1 ? 0 : 1) : value,
-    );
+    const extra = item === 0 ? "Cream" : "Vanilla";
+    const updatedAdditions = {
+      ...additions,
+      [extra]: additions[extra] === 1 ? 0 : 1,
+    };
+
     setAdditions(updatedAdditions);
 
     const updatedAdditionsOpacities = opacitiesAdditions.map((value, i) =>
@@ -523,8 +564,8 @@ const PreferencesPage = () => {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="flex h-screen w-full justify-center">
-        <div className="flex h-[896px] w-[414px] flex-col bg-white">
+      <div className="flex w-full justify-center">
+        <div className="flex h-screen w-[414px] flex-col bg-white">
           <Header />
           <div className="my-1 flex flex-col">
             {/* Preferences header */}
@@ -538,7 +579,7 @@ const PreferencesPage = () => {
               <Basket basketAmount={basketAmount} />
             </div>
             {/* Bg & Icon */}
-            {drink && <DrinkBackground drink={drink} />}
+            {drink && <DrinkBackground drink={drinkName} />}
 
             {/* Coffee Details */}
             <DrinkDetails

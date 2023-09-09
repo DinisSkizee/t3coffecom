@@ -1,6 +1,6 @@
 import React from "react";
 
-const Capuccino = ({ className }: { className?: string }) => {
+const Cappuccino = ({ className }: { className?: string }) => {
   return (
     <svg
       viewBox="0 0 100 83"
@@ -48,4 +48,4 @@ const Capuccino = ({ className }: { className?: string }) => {
   );
 };
 
-export default Capuccino;
+export default Cappuccino;

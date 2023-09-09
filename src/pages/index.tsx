@@ -1,7 +1,15 @@
 import Head from "next/head";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
-import { useGetProductsQuery } from "@gql/schema";
+import { useEffect, useState } from "react";
+
+import {
+  useGetProductsQuery,
+  useCreateCartMutation,
+  useGetCartQuery,
+  useAddCartLinesMutation,
+  useCheckoutCreateMutation,
+} from "@gql/schema";
 
 export const BgImage = tw.div`
   absolute
@@ -16,20 +24,16 @@ export const BgImage = tw.div`
 `;
 
 export default function Home() {
-  const { data, loading } = useGetProductsQuery();
   return (
     <>
       <Head>
         <title>CoffeeCom</title>
       </Head>
-      <div className="relative left-[50%] z-10 h-[896px] w-[414px] -translate-x-[50%] overflow-hidden bg-[#F8E8D4]">
+      <div className="relative left-[50%] z-10 h-screen w-[414px] -translate-x-[50%] overflow-hidden bg-[#F8E8D4]">
         <BgImage />
         <div className="min-h-screen"></div>
       </div>
-      {loading && <div>Loading...</div>}
-      {data?.products?.edges?.map((product) => (
-        <div key={product.node.id}>{product.node.title}</div>
-      ))}
+
       <Link
         href="/start"
         className="absolute left-[50%] top-[50%] z-50 flex min-h-screen -translate-x-[50%] -translate-y-[50%] flex-col items-center justify-center gap-2"

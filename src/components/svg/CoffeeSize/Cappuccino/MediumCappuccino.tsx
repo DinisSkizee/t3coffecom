@@ -1,6 +1,6 @@
 import React from "react";
 
-const MediumCapuccino = ({ opacities }: { opacities: number }) => {
+const MediumCappuccino = ({ opacities }: { opacities: number }) => {
   return (
     <svg
       width="33"
@@ -22,4 +22,4 @@ const MediumCapuccino = ({ opacities }: { opacities: number }) => {
   );
 };
 
-export default MediumCapuccino;
+export default MediumCappuccino;

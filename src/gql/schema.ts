@@ -14987,13 +14987,359 @@ export type DirectiveResolvers<ContextType = any> = {
   oneOf?: OneOfDirectiveResolver<any, any, ContextType>;
 };
 
+export const AddCartLinesDocument = gql`
+  mutation AddCartLines($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart {
+        id
+        createdAt
+        updatedAt
+        lines(first: 10) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  product {
+                    title
+                  }
+                }
+              }
+              attributes {
+                key
+                value
+              }
+            }
+          }
+        }
+        attributes {
+          key
+          value
+        }
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+          totalTaxAmount {
+            amount
+            currencyCode
+          }
+          totalDutyAmount {
+            amount
+            currencyCode
+          }
+        }
+        buyerIdentity {
+          email
+          phone
+          customer {
+            id
+          }
+          countryCode
+          deliveryAddressPreferences {
+            ... on MailingAddress {
+              address1
+              address2
+              city
+              provinceCode
+              countryCodeV2
+              zip
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+export type AddCartLinesMutationFn = Apollo.MutationFunction<
+  AddCartLinesMutation,
+  AddCartLinesMutationVariables
+>;
+
+/**
+ * __useAddCartLinesMutation__
+ *
+ * To run a mutation, you first call `useAddCartLinesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCartLinesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCartLinesMutation, { data, loading, error }] = useAddCartLinesMutation({
+ *   variables: {
+ *      cartId: // value for 'cartId'
+ *      lines: // value for 'lines'
+ *   },
+ * });
+ */
+export function useAddCartLinesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddCartLinesMutation,
+    AddCartLinesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    AddCartLinesMutation,
+    AddCartLinesMutationVariables
+  >(AddCartLinesDocument, options);
+}
+export type AddCartLinesMutationHookResult = ReturnType<
+  typeof useAddCartLinesMutation
+>;
+export type AddCartLinesMutationResult =
+  Apollo.MutationResult<AddCartLinesMutation>;
+export type AddCartLinesMutationOptions = Apollo.BaseMutationOptions<
+  AddCartLinesMutation,
+  AddCartLinesMutationVariables
+>;
+export const CheckoutCreateDocument = gql`
+  mutation CheckoutCreate($variant: ID!) {
+    checkoutCreate(input: { lineItems: { variantId: $variant, quantity: 1 } }) {
+      checkout {
+        webUrl
+      }
+    }
+  }
+`;
+export type CheckoutCreateMutationFn = Apollo.MutationFunction<
+  CheckoutCreateMutation,
+  CheckoutCreateMutationVariables
+>;
+
+/**
+ * __useCheckoutCreateMutation__
+ *
+ * To run a mutation, you first call `useCheckoutCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCheckoutCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [checkoutCreateMutation, { data, loading, error }] = useCheckoutCreateMutation({
+ *   variables: {
+ *      variant: // value for 'variant'
+ *   },
+ * });
+ */
+export function useCheckoutCreateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CheckoutCreateMutation,
+    CheckoutCreateMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CheckoutCreateMutation,
+    CheckoutCreateMutationVariables
+  >(CheckoutCreateDocument, options);
+}
+export type CheckoutCreateMutationHookResult = ReturnType<
+  typeof useCheckoutCreateMutation
+>;
+export type CheckoutCreateMutationResult =
+  Apollo.MutationResult<CheckoutCreateMutation>;
+export type CheckoutCreateMutationOptions = Apollo.BaseMutationOptions<
+  CheckoutCreateMutation,
+  CheckoutCreateMutationVariables
+>;
+export const CreateCartDocument = gql`
+  mutation CreateCart {
+    cartCreate {
+      cart {
+        id
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export type CreateCartMutationFn = Apollo.MutationFunction<
+  CreateCartMutation,
+  CreateCartMutationVariables
+>;
+
+/**
+ * __useCreateCartMutation__
+ *
+ * To run a mutation, you first call `useCreateCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCartMutation, { data, loading, error }] = useCreateCartMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCreateCartMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateCartMutation,
+    CreateCartMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateCartMutation, CreateCartMutationVariables>(
+    CreateCartDocument,
+    options,
+  );
+}
+export type CreateCartMutationHookResult = ReturnType<
+  typeof useCreateCartMutation
+>;
+export type CreateCartMutationResult =
+  Apollo.MutationResult<CreateCartMutation>;
+export type CreateCartMutationOptions = Apollo.BaseMutationOptions<
+  CreateCartMutation,
+  CreateCartMutationVariables
+>;
+export const GetCartDocument = gql`
+  query GetCart($cardId: ID!) {
+    cart(id: $cardId) {
+      id
+      createdAt
+      updatedAt
+      lines(first: 10) {
+        edges {
+          node {
+            id
+            quantity
+            merchandise {
+              ... on ProductVariant {
+                id
+              }
+            }
+            attributes {
+              key
+              value
+            }
+          }
+        }
+      }
+      attributes {
+        key
+        value
+      }
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+        subtotalAmount {
+          amount
+          currencyCode
+        }
+        totalTaxAmount {
+          amount
+          currencyCode
+        }
+        totalDutyAmount {
+          amount
+          currencyCode
+        }
+      }
+      buyerIdentity {
+        email
+        phone
+        customer {
+          id
+        }
+        countryCode
+        deliveryAddressPreferences {
+          ... on MailingAddress {
+            address1
+            address2
+            city
+            provinceCode
+            countryCodeV2
+            zip
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCartQuery__
+ *
+ * To run a query within a React component, call `useGetCartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCartQuery({
+ *   variables: {
+ *      cardId: // value for 'cardId'
+ *   },
+ * });
+ */
+export function useGetCartQuery(
+  baseOptions: Apollo.QueryHookOptions<GetCartQuery, GetCartQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCartQuery, GetCartQueryVariables>(
+    GetCartDocument,
+    options,
+  );
+}
+export function useGetCartLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCartQuery,
+    GetCartQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCartQuery, GetCartQueryVariables>(
+    GetCartDocument,
+    options,
+  );
+}
+export type GetCartQueryHookResult = ReturnType<typeof useGetCartQuery>;
+export type GetCartLazyQueryHookResult = ReturnType<typeof useGetCartLazyQuery>;
+export type GetCartQueryResult = Apollo.QueryResult<
+  GetCartQuery,
+  GetCartQueryVariables
+>;
 export const GetProductsDocument = gql`
-  query GetProducts {
-    products(first: 10) {
+  query GetProducts($first: Int!) {
+    products(first: $first) {
       edges {
         node {
           id
           title
+          variants(first: $first) {
+            edges {
+              node {
+                id
+                title
+                price {
+                  amount
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -15012,11 +15358,12 @@ export const GetProductsDocument = gql`
  * @example
  * const { data, loading, error } = useGetProductsQuery({
  *   variables: {
+ *      first: // value for 'first'
  *   },
  * });
  */
 export function useGetProductsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetProductsQuery,
     GetProductsQueryVariables
   >,
@@ -15047,7 +15394,302 @@ export type GetProductsQueryResult = Apollo.QueryResult<
   GetProductsQuery,
   GetProductsQueryVariables
 >;
-export type GetProductsQueryVariables = Exact<{ [key: string]: never }>;
+export const SingleProductDocument = gql`
+  query SingleProduct($handle: String!) {
+    productByHandle(handle: $handle) {
+      title
+      description
+      updatedAt
+      tags
+      priceRange {
+        minVariantPrice {
+          amount
+        }
+      }
+      variants(first: 1) {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useSingleProductQuery__
+ *
+ * To run a query within a React component, call `useSingleProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleProductQuery({
+ *   variables: {
+ *      handle: // value for 'handle'
+ *   },
+ * });
+ */
+export function useSingleProductQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SingleProductQuery,
+    SingleProductQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SingleProductQuery, SingleProductQueryVariables>(
+    SingleProductDocument,
+    options,
+  );
+}
+export function useSingleProductLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SingleProductQuery,
+    SingleProductQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SingleProductQuery, SingleProductQueryVariables>(
+    SingleProductDocument,
+    options,
+  );
+}
+export type SingleProductQueryHookResult = ReturnType<
+  typeof useSingleProductQuery
+>;
+export type SingleProductLazyQueryHookResult = ReturnType<
+  typeof useSingleProductLazyQuery
+>;
+export type SingleProductQueryResult = Apollo.QueryResult<
+  SingleProductQuery,
+  SingleProductQueryVariables
+>;
+export type AddCartLinesMutationVariables = Exact<{
+  cartId: Scalars["ID"]["input"];
+  lines: Array<CartLineInput> | CartLineInput;
+}>;
+
+export type AddCartLinesMutation = {
+  __typename?: "Mutation";
+  cartLinesAdd?: {
+    __typename?: "CartLinesAddPayload";
+    cart?: {
+      __typename?: "Cart";
+      id: string;
+      createdAt: any;
+      updatedAt: any;
+      lines: {
+        __typename?: "BaseCartLineConnection";
+        edges: Array<{
+          __typename?: "BaseCartLineEdge";
+          node:
+            | {
+                __typename?: "CartLine";
+                id: string;
+                quantity: number;
+                merchandise: {
+                  __typename?: "ProductVariant";
+                  id: string;
+                  title: string;
+                  product: { __typename?: "Product"; title: string };
+                };
+                attributes: Array<{
+                  __typename?: "Attribute";
+                  key: string;
+                  value?: string | null;
+                }>;
+              }
+            | {
+                __typename?: "ComponentizableCartLine";
+                id: string;
+                quantity: number;
+                merchandise: {
+                  __typename?: "ProductVariant";
+                  id: string;
+                  title: string;
+                  product: { __typename?: "Product"; title: string };
+                };
+                attributes: Array<{
+                  __typename?: "Attribute";
+                  key: string;
+                  value?: string | null;
+                }>;
+              };
+        }>;
+      };
+      attributes: Array<{
+        __typename?: "Attribute";
+        key: string;
+        value?: string | null;
+      }>;
+      cost: {
+        __typename?: "CartCost";
+        totalAmount: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        };
+        subtotalAmount: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        };
+        totalTaxAmount?: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        } | null;
+        totalDutyAmount?: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        } | null;
+      };
+      buyerIdentity: {
+        __typename?: "CartBuyerIdentity";
+        email?: string | null;
+        phone?: string | null;
+        countryCode?: CountryCode | null;
+        customer?: { __typename?: "Customer"; id: string } | null;
+        deliveryAddressPreferences: Array<{
+          __typename?: "MailingAddress";
+          address1?: string | null;
+          address2?: string | null;
+          city?: string | null;
+          provinceCode?: string | null;
+          countryCodeV2?: CountryCode | null;
+          zip?: string | null;
+        }>;
+      };
+    } | null;
+    userErrors: Array<{
+      __typename?: "CartUserError";
+      field?: Array<string> | null;
+      message: string;
+    }>;
+  } | null;
+};
+
+export type CheckoutCreateMutationVariables = Exact<{
+  variant: Scalars["ID"]["input"];
+}>;
+
+export type CheckoutCreateMutation = {
+  __typename?: "Mutation";
+  checkoutCreate?: {
+    __typename?: "CheckoutCreatePayload";
+    checkout?: { __typename?: "Checkout"; webUrl: any } | null;
+  } | null;
+};
+
+export type CreateCartMutationVariables = Exact<{ [key: string]: never }>;
+
+export type CreateCartMutation = {
+  __typename?: "Mutation";
+  cartCreate?: {
+    __typename?: "CartCreatePayload";
+    cart?: {
+      __typename?: "Cart";
+      id: string;
+      createdAt: any;
+      updatedAt: any;
+    } | null;
+  } | null;
+};
+
+export type GetCartQueryVariables = Exact<{
+  cardId: Scalars["ID"]["input"];
+}>;
+
+export type GetCartQuery = {
+  __typename?: "QueryRoot";
+  cart?: {
+    __typename?: "Cart";
+    id: string;
+    createdAt: any;
+    updatedAt: any;
+    lines: {
+      __typename?: "BaseCartLineConnection";
+      edges: Array<{
+        __typename?: "BaseCartLineEdge";
+        node:
+          | {
+              __typename?: "CartLine";
+              id: string;
+              quantity: number;
+              merchandise: { __typename?: "ProductVariant"; id: string };
+              attributes: Array<{
+                __typename?: "Attribute";
+                key: string;
+                value?: string | null;
+              }>;
+            }
+          | {
+              __typename?: "ComponentizableCartLine";
+              id: string;
+              quantity: number;
+              merchandise: { __typename?: "ProductVariant"; id: string };
+              attributes: Array<{
+                __typename?: "Attribute";
+                key: string;
+                value?: string | null;
+              }>;
+            };
+      }>;
+    };
+    attributes: Array<{
+      __typename?: "Attribute";
+      key: string;
+      value?: string | null;
+    }>;
+    cost: {
+      __typename?: "CartCost";
+      totalAmount: {
+        __typename?: "MoneyV2";
+        amount: any;
+        currencyCode: CurrencyCode;
+      };
+      subtotalAmount: {
+        __typename?: "MoneyV2";
+        amount: any;
+        currencyCode: CurrencyCode;
+      };
+      totalTaxAmount?: {
+        __typename?: "MoneyV2";
+        amount: any;
+        currencyCode: CurrencyCode;
+      } | null;
+      totalDutyAmount?: {
+        __typename?: "MoneyV2";
+        amount: any;
+        currencyCode: CurrencyCode;
+      } | null;
+    };
+    buyerIdentity: {
+      __typename?: "CartBuyerIdentity";
+      email?: string | null;
+      phone?: string | null;
+      countryCode?: CountryCode | null;
+      customer?: { __typename?: "Customer"; id: string } | null;
+      deliveryAddressPreferences: Array<{
+        __typename?: "MailingAddress";
+        address1?: string | null;
+        address2?: string | null;
+        city?: string | null;
+        provinceCode?: string | null;
+        countryCodeV2?: CountryCode | null;
+        zip?: string | null;
+      }>;
+    };
+  } | null;
+};
+
+export type GetProductsQueryVariables = Exact<{
+  first: Scalars["Int"]["input"];
+}>;
 
 export type GetProductsQuery = {
   __typename?: "QueryRoot";
@@ -15055,7 +15697,49 @@ export type GetProductsQuery = {
     __typename?: "ProductConnection";
     edges: Array<{
       __typename?: "ProductEdge";
-      node: { __typename?: "Product"; id: string; title: string };
+      node: {
+        __typename?: "Product";
+        id: string;
+        title: string;
+        variants: {
+          __typename?: "ProductVariantConnection";
+          edges: Array<{
+            __typename?: "ProductVariantEdge";
+            node: {
+              __typename?: "ProductVariant";
+              id: string;
+              title: string;
+              price: { __typename?: "MoneyV2"; amount: any };
+            };
+          }>;
+        };
+      };
     }>;
   };
+};
+
+export type SingleProductQueryVariables = Exact<{
+  handle: Scalars["String"]["input"];
+}>;
+
+export type SingleProductQuery = {
+  __typename?: "QueryRoot";
+  productByHandle?: {
+    __typename?: "Product";
+    title: string;
+    description: string;
+    updatedAt: any;
+    tags: Array<string>;
+    priceRange: {
+      __typename?: "ProductPriceRange";
+      minVariantPrice: { __typename?: "MoneyV2"; amount: any };
+    };
+    variants: {
+      __typename?: "ProductVariantConnection";
+      edges: Array<{
+        __typename?: "ProductVariantEdge";
+        node: { __typename?: "ProductVariant"; id: string };
+      }>;
+    };
+  } | null;
 };
