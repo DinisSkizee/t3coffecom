@@ -1,15 +1,6 @@
 import Head from "next/head";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-import {
-  useGetProductsQuery,
-  useCreateCartMutation,
-  useGetCartQuery,
-  useAddCartLinesMutation,
-  useCheckoutCreateMutation,
-} from "@gql/schema";
 
 export const BgImage = tw.div`
   absolute

@@ -4,6 +4,7 @@ mutation AddCartLines($cartId: ID!, $lines: [CartLineInput!]!) {
       id
       createdAt
       updatedAt
+      totalQuantity
       lines(first: 10) {
         edges {
           node {

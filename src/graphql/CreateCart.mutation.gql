@@ -4,6 +4,7 @@ mutation CreateCart {
       id
       createdAt
       updatedAt
+      totalQuantity
     }
   }
 }
