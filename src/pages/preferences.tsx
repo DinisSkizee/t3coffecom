@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Link from "next/link";
@@ -69,6 +69,9 @@ const PreferencesPage = () => {
       error: basketItemsError,
     },
   ] = useAddCartLinesMutation();
+
+  const [cartId, setCartId] = useState("");
+
   const [
     createCartMutation,
     {
@@ -76,20 +79,44 @@ const PreferencesPage = () => {
       loading: createCartLoading,
       error: createCartError,
     },
-  ] = useCreateCartMutation();
+  ] = useCreateCartMutation({});
 
+  const {
+    data: getCartData,
+    loading: getCartLoading,
+    error: getCartError,
+  } = useGetCartQuery({
+    variables: {
+      cardId: cartId,
+    },
+  });
+
+  // On Page Start
   useEffect(() => {
-    console.log("basketItemsData", basketItemsData);
-  }, [basketItemsData]);
+    const cardIdTemp = localStorage.getItem("cartId") ?? "";
+    setCartId(cardIdTemp);
+    if (!cardIdTemp)
+      createCartMutation().catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // On Cart Create Check For CartId in LocalStorage or Create New One
   useEffect(() => {
     console.log("createCartData", createCartData);
+    const cardIdTemp = localStorage.getItem("cartId") ?? "";
+    if (!cardIdTemp) {
+      localStorage.setItem(
+        "cartId",
+        createCartData?.cartCreate?.cart?.id ?? "",
+      );
+    }
+    setCartId(cardIdTemp);
   }, [createCartData]);
-
   useEffect(() => {
-    createCartMutation().catch((err) => {
-      console.log(err);
-    });
-  }, []);
+    console.log("getCartData", getCartData);
+  }, [getCartData]);
+
   // 1. Check if the drink parameter is a string
   useEffect(() => {
     if (typeof drink === "string") {
@@ -204,6 +231,7 @@ const PreferencesPage = () => {
       <Head>
         <title>{title}</title>
       </Head>
+      {}
       <div className="flex w-full justify-center">
         <div className="flex h-screen w-[414px] flex-col bg-white">
           <Header />
@@ -213,14 +241,10 @@ const PreferencesPage = () => {
               <Link href={"/selectDrink"}>
                 <BackArrow />
               </Link>
-              <div className="m-auto my-2 text-[24px] text-[#8C746A]">
+              <div className="m-auto my-2 select-none text-[24px] text-[#8C746A]">
                 Preferences
               </div>
-              <Basket
-                basketAmount={
-                  basketItemsData?.cartLinesAdd?.cart?.totalQuantity ?? 0
-                }
-              />
+              <Basket basketAmount={getCartData?.cart?.totalQuantity ?? 0} />
             </div>
             {/* Bg & Icon */}
             {drink && <DrinkBackground drink={drinkName} />}
@@ -261,13 +285,13 @@ const PreferencesPage = () => {
             <TotalAmount totalAmount={totalAmount} />
 
             {/* Add To Cart */}
-            {drinkVariant && createCartData && totalAmount > 0 && (
+            {drinkVariant && cartId && totalAmount > 0 && (
               <CartButton
                 setBasketAmount={setBasketAmount}
                 basketAmount={basketAmount}
                 addCartLines={addCartLinesMutation}
                 prodVariant={drinkVariant}
-                cartData={createCartData}
+                cartId={cartId}
               />
             )}
           </div>

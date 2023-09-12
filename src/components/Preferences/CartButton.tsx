@@ -7,7 +7,7 @@ interface CartButtonProps {
   basketAmount: number;
   addCartLines: any;
   prodVariant: ProductVariant;
-  cartData: CreateCartMutation;
+  cartId: string;
 }
 
 const CartButton = ({
@@ -15,7 +15,7 @@ const CartButton = ({
   basketAmount,
   addCartLines,
   prodVariant,
-  cartData,
+  cartId,
 }: CartButtonProps) => {
   const [cartOpacity, setCartOpacity] = useState(0);
   const [displayText, setDisplayText] = useState("Add To Cart");
@@ -24,7 +24,7 @@ const CartButton = ({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     addCartLines({
       variables: {
-        cartId: cartData.cartCreate?.cart?.id,
+        cartId: cartId,
         lines: {
           merchandiseId: prodVariant.id,
         },
@@ -49,9 +49,9 @@ const CartButton = ({
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex cursor-pointer select-none items-center justify-center">
       <div
-        className="flex w-[90%] items-center justify-center rounded-full bg-[#B98068] py-3.5 text-white"
+        className="flex w-[90%] items-center justify-center rounded-full bg-[#B98068] py-3.5 text-white hover:drop-shadow-md"
         onClick={handleButtonClick}
       >
         {displayText}
