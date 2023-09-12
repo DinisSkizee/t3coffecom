@@ -68,6 +68,7 @@ const Basket = ({ basketAmount }: { basketAmount: number }) => {
               textAnchor="middle"
               fontSize=".7em"
               fill="#ABA19E"
+              className="select-none"
             >
               {basketAmount}
             </text>

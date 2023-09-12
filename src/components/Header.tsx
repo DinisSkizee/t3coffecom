@@ -35,7 +35,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="flex flex-row items-center gap-1 p-[1rem]">
+    <div className="flex select-none flex-row items-center gap-1 p-[1rem]">
       {/* Header Left Time/Icon */}
       <h4 className="ml-4 text-sm font-extrabold">{time}</h4>
 

@@ -15,7 +15,7 @@ const DrinkDetails = ({
   increaseDrinkAmount,
 }: DetailsProps) => {
   return (
-    <div className="mx-6 my-4 flex flex-row">
+    <div className="mx-6 my-4 flex select-none flex-row">
       <div className="flex flex-col">
         <div className="text-[20px] font-bold text-[#2D140D]">{drinkName}</div>
         <div className="text-[18px] text-[#383537]">
