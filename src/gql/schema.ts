@@ -15058,10 +15058,8 @@ export const AddCartLinesDocument = gql`
     cartLinesAdd(cartId: $cartId, lines: $lines) {
       cart {
         id
-        createdAt
-        updatedAt
         totalQuantity
-        lines(first: 10) {
+        lines(first: 100) {
           edges {
             node {
               id
@@ -15069,22 +15067,10 @@ export const AddCartLinesDocument = gql`
               merchandise {
                 ... on ProductVariant {
                   id
-                  title
-                  product {
-                    title
-                  }
                 }
-              }
-              attributes {
-                key
-                value
               }
             }
           }
-        }
-        attributes {
-          key
-          value
         }
         cost {
           totalAmount {
@@ -15102,24 +15088,6 @@ export const AddCartLinesDocument = gql`
           totalDutyAmount {
             amount
             currencyCode
-          }
-        }
-        buyerIdentity {
-          email
-          phone
-          customer {
-            id
-          }
-          countryCode
-          deliveryAddressPreferences {
-            ... on MailingAddress {
-              address1
-              address2
-              city
-              provinceCode
-              countryCodeV2
-              zip
-            }
           }
         }
       }
@@ -15173,59 +15141,6 @@ export type AddCartLinesMutationResult =
 export type AddCartLinesMutationOptions = Apollo.BaseMutationOptions<
   AddCartLinesMutation,
   AddCartLinesMutationVariables
->;
-export const CheckoutCreateDocument = gql`
-  mutation CheckoutCreate($variant: ID!) {
-    checkoutCreate(input: { lineItems: { variantId: $variant, quantity: 1 } }) {
-      checkout {
-        webUrl
-        id
-      }
-    }
-  }
-`;
-export type CheckoutCreateMutationFn = Apollo.MutationFunction<
-  CheckoutCreateMutation,
-  CheckoutCreateMutationVariables
->;
-
-/**
- * __useCheckoutCreateMutation__
- *
- * To run a mutation, you first call `useCheckoutCreateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCheckoutCreateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [checkoutCreateMutation, { data, loading, error }] = useCheckoutCreateMutation({
- *   variables: {
- *      variant: // value for 'variant'
- *   },
- * });
- */
-export function useCheckoutCreateMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CheckoutCreateMutation,
-    CheckoutCreateMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CheckoutCreateMutation,
-    CheckoutCreateMutationVariables
-  >(CheckoutCreateDocument, options);
-}
-export type CheckoutCreateMutationHookResult = ReturnType<
-  typeof useCheckoutCreateMutation
->;
-export type CheckoutCreateMutationResult =
-  Apollo.MutationResult<CheckoutCreateMutation>;
-export type CheckoutCreateMutationOptions = Apollo.BaseMutationOptions<
-  CheckoutCreateMutation,
-  CheckoutCreateMutationVariables
 >;
 export const CreateCartDocument = gql`
   mutation CreateCart {
@@ -15282,8 +15197,8 @@ export type CreateCartMutationOptions = Apollo.BaseMutationOptions<
   CreateCartMutationVariables
 >;
 export const GetCartDocument = gql`
-  query GetCart($cardId: ID!) {
-    cart(id: $cardId) {
+  query GetCart($cartId: ID!) {
+    cart(id: $cartId) {
       id
       createdAt
       updatedAt
@@ -15293,9 +15208,18 @@ export const GetCartDocument = gql`
           node {
             id
             quantity
+            cost {
+              totalAmount {
+                amount
+              }
+            }
             merchandise {
               ... on ProductVariant {
                 id
+                title
+                product {
+                  title
+                }
               }
             }
             attributes {
@@ -15361,7 +15285,7 @@ export const GetCartDocument = gql`
  * @example
  * const { data, loading, error } = useGetCartQuery({
  *   variables: {
- *      cardId: // value for 'cardId'
+ *      cartId: // value for 'cartId'
  *   },
  * });
  */
@@ -15391,6 +15315,64 @@ export type GetCartLazyQueryHookResult = ReturnType<typeof useGetCartLazyQuery>;
 export type GetCartQueryResult = Apollo.QueryResult<
   GetCartQuery,
   GetCartQueryVariables
+>;
+export const GetCheckoutUrlDocument = gql`
+  query GetCheckoutUrl($cartId: ID!) {
+    cart(id: $cartId) {
+      checkoutUrl
+    }
+  }
+`;
+
+/**
+ * __useGetCheckoutUrlQuery__
+ *
+ * To run a query within a React component, call `useGetCheckoutUrlQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCheckoutUrlQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCheckoutUrlQuery({
+ *   variables: {
+ *      cartId: // value for 'cartId'
+ *   },
+ * });
+ */
+export function useGetCheckoutUrlQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCheckoutUrlQuery,
+    GetCheckoutUrlQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCheckoutUrlQuery, GetCheckoutUrlQueryVariables>(
+    GetCheckoutUrlDocument,
+    options,
+  );
+}
+export function useGetCheckoutUrlLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCheckoutUrlQuery,
+    GetCheckoutUrlQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCheckoutUrlQuery, GetCheckoutUrlQueryVariables>(
+    GetCheckoutUrlDocument,
+    options,
+  );
+}
+export type GetCheckoutUrlQueryHookResult = ReturnType<
+  typeof useGetCheckoutUrlQuery
+>;
+export type GetCheckoutUrlLazyQueryHookResult = ReturnType<
+  typeof useGetCheckoutUrlLazyQuery
+>;
+export type GetCheckoutUrlQueryResult = Apollo.QueryResult<
+  GetCheckoutUrlQuery,
+  GetCheckoutUrlQueryVariables
 >;
 export const GetProductsDocument = gql`
   query GetProducts($first: Int!) {
@@ -15537,6 +15519,95 @@ export type SingleProductQueryResult = Apollo.QueryResult<
   SingleProductQuery,
   SingleProductQueryVariables
 >;
+export const UpdateCartLinesDocument = gql`
+  mutation UpdateCartLines($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      cart {
+        id
+        totalQuantity
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                }
+              }
+            }
+          }
+        }
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+          totalTaxAmount {
+            amount
+            currencyCode
+          }
+          totalDutyAmount {
+            amount
+            currencyCode
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+export type UpdateCartLinesMutationFn = Apollo.MutationFunction<
+  UpdateCartLinesMutation,
+  UpdateCartLinesMutationVariables
+>;
+
+/**
+ * __useUpdateCartLinesMutation__
+ *
+ * To run a mutation, you first call `useUpdateCartLinesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCartLinesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCartLinesMutation, { data, loading, error }] = useUpdateCartLinesMutation({
+ *   variables: {
+ *      cartId: // value for 'cartId'
+ *      lines: // value for 'lines'
+ *   },
+ * });
+ */
+export function useUpdateCartLinesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateCartLinesMutation,
+    UpdateCartLinesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateCartLinesMutation,
+    UpdateCartLinesMutationVariables
+  >(UpdateCartLinesDocument, options);
+}
+export type UpdateCartLinesMutationHookResult = ReturnType<
+  typeof useUpdateCartLinesMutation
+>;
+export type UpdateCartLinesMutationResult =
+  Apollo.MutationResult<UpdateCartLinesMutation>;
+export type UpdateCartLinesMutationOptions = Apollo.BaseMutationOptions<
+  UpdateCartLinesMutation,
+  UpdateCartLinesMutationVariables
+>;
 export type AddCartLinesMutationVariables = Exact<{
   cartId: Scalars["ID"]["input"];
   lines: Array<CartLineInput> | CartLineInput;
@@ -15549,8 +15620,6 @@ export type AddCartLinesMutation = {
     cart?: {
       __typename?: "Cart";
       id: string;
-      createdAt: any;
-      updatedAt: any;
       totalQuantity: number;
       lines: {
         __typename?: "BaseCartLineConnection";
@@ -15561,41 +15630,16 @@ export type AddCartLinesMutation = {
                 __typename?: "CartLine";
                 id: string;
                 quantity: number;
-                merchandise: {
-                  __typename?: "ProductVariant";
-                  id: string;
-                  title: string;
-                  product: { __typename?: "Product"; title: string };
-                };
-                attributes: Array<{
-                  __typename?: "Attribute";
-                  key: string;
-                  value?: string | null;
-                }>;
+                merchandise: { __typename?: "ProductVariant"; id: string };
               }
             | {
                 __typename?: "ComponentizableCartLine";
                 id: string;
                 quantity: number;
-                merchandise: {
-                  __typename?: "ProductVariant";
-                  id: string;
-                  title: string;
-                  product: { __typename?: "Product"; title: string };
-                };
-                attributes: Array<{
-                  __typename?: "Attribute";
-                  key: string;
-                  value?: string | null;
-                }>;
+                merchandise: { __typename?: "ProductVariant"; id: string };
               };
         }>;
       };
-      attributes: Array<{
-        __typename?: "Attribute";
-        key: string;
-        value?: string | null;
-      }>;
       cost: {
         __typename?: "CartCost";
         totalAmount: {
@@ -15619,40 +15663,12 @@ export type AddCartLinesMutation = {
           currencyCode: CurrencyCode;
         } | null;
       };
-      buyerIdentity: {
-        __typename?: "CartBuyerIdentity";
-        email?: string | null;
-        phone?: string | null;
-        countryCode?: CountryCode | null;
-        customer?: { __typename?: "Customer"; id: string } | null;
-        deliveryAddressPreferences: Array<{
-          __typename?: "MailingAddress";
-          address1?: string | null;
-          address2?: string | null;
-          city?: string | null;
-          provinceCode?: string | null;
-          countryCodeV2?: CountryCode | null;
-          zip?: string | null;
-        }>;
-      };
     } | null;
     userErrors: Array<{
       __typename?: "CartUserError";
       field?: Array<string> | null;
       message: string;
     }>;
-  } | null;
-};
-
-export type CheckoutCreateMutationVariables = Exact<{
-  variant: Scalars["ID"]["input"];
-}>;
-
-export type CheckoutCreateMutation = {
-  __typename?: "Mutation";
-  checkoutCreate?: {
-    __typename?: "CheckoutCreatePayload";
-    checkout?: { __typename?: "Checkout"; webUrl: any; id: string } | null;
   } | null;
 };
 
@@ -15673,7 +15689,7 @@ export type CreateCartMutation = {
 };
 
 export type GetCartQueryVariables = Exact<{
-  cardId: Scalars["ID"]["input"];
+  cartId: Scalars["ID"]["input"];
 }>;
 
 export type GetCartQuery = {
@@ -15693,7 +15709,16 @@ export type GetCartQuery = {
               __typename?: "CartLine";
               id: string;
               quantity: number;
-              merchandise: { __typename?: "ProductVariant"; id: string };
+              cost: {
+                __typename?: "CartLineCost";
+                totalAmount: { __typename?: "MoneyV2"; amount: any };
+              };
+              merchandise: {
+                __typename?: "ProductVariant";
+                id: string;
+                title: string;
+                product: { __typename?: "Product"; title: string };
+              };
               attributes: Array<{
                 __typename?: "Attribute";
                 key: string;
@@ -15704,7 +15729,16 @@ export type GetCartQuery = {
               __typename?: "ComponentizableCartLine";
               id: string;
               quantity: number;
-              merchandise: { __typename?: "ProductVariant"; id: string };
+              cost: {
+                __typename?: "CartLineCost";
+                totalAmount: { __typename?: "MoneyV2"; amount: any };
+              };
+              merchandise: {
+                __typename?: "ProductVariant";
+                id: string;
+                title: string;
+                product: { __typename?: "Product"; title: string };
+              };
               attributes: Array<{
                 __typename?: "Attribute";
                 key: string;
@@ -15758,6 +15792,15 @@ export type GetCartQuery = {
       }>;
     };
   } | null;
+};
+
+export type GetCheckoutUrlQueryVariables = Exact<{
+  cartId: Scalars["ID"]["input"];
+}>;
+
+export type GetCheckoutUrlQuery = {
+  __typename?: "QueryRoot";
+  cart?: { __typename?: "Cart"; checkoutUrl: any } | null;
 };
 
 export type GetProductsQueryVariables = Exact<{
@@ -15814,5 +15857,69 @@ export type SingleProductQuery = {
         node: { __typename?: "ProductVariant"; id: string };
       }>;
     };
+  } | null;
+};
+
+export type UpdateCartLinesMutationVariables = Exact<{
+  cartId: Scalars["ID"]["input"];
+  lines: Array<CartLineUpdateInput> | CartLineUpdateInput;
+}>;
+
+export type UpdateCartLinesMutation = {
+  __typename?: "Mutation";
+  cartLinesUpdate?: {
+    __typename?: "CartLinesUpdatePayload";
+    cart?: {
+      __typename?: "Cart";
+      id: string;
+      totalQuantity: number;
+      lines: {
+        __typename?: "BaseCartLineConnection";
+        edges: Array<{
+          __typename?: "BaseCartLineEdge";
+          node:
+            | {
+                __typename?: "CartLine";
+                id: string;
+                quantity: number;
+                merchandise: { __typename?: "ProductVariant"; id: string };
+              }
+            | {
+                __typename?: "ComponentizableCartLine";
+                id: string;
+                quantity: number;
+                merchandise: { __typename?: "ProductVariant"; id: string };
+              };
+        }>;
+      };
+      cost: {
+        __typename?: "CartCost";
+        totalAmount: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        };
+        subtotalAmount: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        };
+        totalTaxAmount?: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        } | null;
+        totalDutyAmount?: {
+          __typename?: "MoneyV2";
+          amount: any;
+          currencyCode: CurrencyCode;
+        } | null;
+      };
+    } | null;
+    userErrors: Array<{
+      __typename?: "CartUserError";
+      field?: Array<string> | null;
+      message: string;
+    }>;
   } | null;
 };

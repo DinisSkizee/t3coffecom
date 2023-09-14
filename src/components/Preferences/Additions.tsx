@@ -28,7 +28,7 @@ const Additions = ({ manageAdditions, opacitiesAdditions }: AdditionsProps) => {
   };
   return (
     <div className="m-6 flex flex-row items-center">
-      <div className="text-[20px] text-[#715D55]">Additions</div>
+      <div className="select-none text-[20px] text-[#715D55]">Additions</div>
       <div className="m-auto ml-2 flex w-[60%] flex-row items-center justify-evenly">
         <div
           onClick={() => manageAdditions(0)}
