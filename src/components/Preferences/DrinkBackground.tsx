@@ -7,7 +7,7 @@ import Cappuccino from "@svg/Coffee/Cappuccino";
 
 const drinkComponentMap: Record<
   string,
-  React.ComponentType<{ className?: string }>
+  React.ComponentType<{ className?: string; size: number }>
 > = {
   Macchiato: Macchiato,
   Espresso: Espresso,
@@ -21,7 +21,7 @@ const DrinkBackground = ({ drink }: { drink: string }) => {
   return (
     <div className="flex h-[210px] items-center justify-center bg-background-light">
       {DrinkComponent && (
-        <DrinkComponent className="h-[100px] drop-shadow-strDrop" />
+        <DrinkComponent size={4} className="drop-shadow-strDrop" />
       )}
     </div>
   );
