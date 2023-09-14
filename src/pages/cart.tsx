@@ -23,14 +23,9 @@ const Cart = () => {
       cartId: cartId,
     },
   });
-  const [
-    updateCartLinesMutation,
-    { data: updateData, loading: updateLoading, error: updateError },
-  ] = useUpdateCartLinesMutation();
-  const [
-    addCartLinesMutation,
-    { data: addData, loading: addLoading, error: addError },
-  ] = useAddCartLinesMutation();
+  const [updateCartLinesMutation, { data: updateData }] =
+    useUpdateCartLinesMutation();
+  const [addCartLinesMutation, { data: addData }] = useAddCartLinesMutation();
 
   useEffect(() => {
     void refetchCartData();

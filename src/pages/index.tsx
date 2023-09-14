@@ -37,22 +37,6 @@ export default function Home() {
           fill="none"
           className="drop-shadow-strDrop"
         >
-          <mask
-            id="mask0_0_632"
-            style={{ maskType: "luminance" }}
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="48"
-            width="116"
-            height="69"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M0 48.7966H115.92V116.823H0V48.7966Z"
-              fill="white"
-            />
-          </mask>
           <g mask="url(#mask0_0_632)">
             <path
               fillRule="evenodd"
