@@ -79,13 +79,16 @@ const BasketItem = ({
       <div className="flex w-[35%] flex-col">
         <h2 className="font-bold">{productName}</h2>
         {variantsList.map((variant) => (
-          <p key={variant}>{`x ${variant}`}</p>
+          <p
+            className="text-[13px] font-semibold text-[#8C746A]"
+            key={variant}
+          >{`x ${variant}`}</p>
         ))}
       </div>
       <div className="flex h-full flex-col items-center justify-evenly">
-        <div className="text-[20px]">{`£${Number(productPrice).toFixed(
-          2,
-        )}`}</div>
+        <div className="text-[20px] font-medium text-[#231514]">{`£${Number(
+          productPrice,
+        ).toFixed(2)}`}</div>
         <div className="flex flex-row gap-2 text-[16px] font-semibold">
           <div
             onClick={handleRemoveProductClick}
