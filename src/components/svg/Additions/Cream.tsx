@@ -5,13 +5,7 @@ interface CreamProps {
 }
 const Cream = ({ opacitiesAdditions }: CreamProps) => {
   return (
-    <svg
-      width="27"
-      height="25"
-      viewBox="0 0 27 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="27" height="25" viewBox="0 0 27 25" fill="none">
       <path
         opacity={opacitiesAdditions}
         fillRule="evenodd"
