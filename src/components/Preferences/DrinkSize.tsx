@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SmallLatte from "@svg/CoffeeSize/Latte/SmallLatte";
-import LargeMocha from "@svg/CoffeeSize/Mocha/LargeMocha";
-import LargeLatte from "@svg/CoffeeSize/Latte/LargeLatte";
-import SmallMocha from "@svg/CoffeeSize/Mocha/SmallMocha";
-import MediumLatte from "@svg/CoffeeSize/Latte/MediumLatte";
-import MediumMocha from "@svg/CoffeeSize/Mocha/MediumMocha";
-import SmallEspresso from "@svg/CoffeeSize/Espresso/SmallEspresso";
-import LargeEspresso from "@svg/CoffeeSize/Espresso/LargeEspresso";
-import MediumEspresso from "@svg/CoffeeSize/Espresso/MediumEspresso";
-import SmallMacchiato from "@svg/CoffeeSize/Macchiato/SmallMacchiato";
-import LargeMacchiato from "@svg/CoffeeSize/Macchiato/LargeMacchiato";
-import MediumMacchiato from "@svg/CoffeeSize/Macchiato/MediumMacchiato";
-import SmallCappuccino from "@svg/CoffeeSize/Cappuccino/SmallCappuccino";
-import LargeCappuccino from "@svg/CoffeeSize/Cappuccino/LargeCappuccino";
-import MediumCappuccino from "@svg/CoffeeSize/Cappuccino/MediumCappuccino";
+import Cappuccino from "@svg/Coffee/Cappuccino";
+import Latte from "@svg/Coffee/Latte";
+import Mocha from "@svg/Coffee/Mocha";
+import Espresso from "@svg/Coffee/Espresso";
+import Macchiato from "@svg/Coffee/Macchiato";
 
 interface SizeProps {
   newDrinkSize: (size: number) => void;
@@ -21,89 +11,54 @@ interface SizeProps {
   drinkName: string;
 }
 
-const smallCupComponentMap: Record<
+const cupSizeComponents: Record<
   string,
-  React.ComponentType<{ opacities: number }>
+  React.ComponentType<{ opacities: number; size: number }>
 > = {
-  Macchiato: SmallMacchiato,
-  Espresso: SmallEspresso,
-  Mocha: SmallMocha,
-  Latte: SmallLatte,
-  Cappuccino: SmallCappuccino,
-};
-const mediumCupComponentMap: Record<
-  string,
-  React.ComponentType<{ opacities: number }>
-> = {
-  Macchiato: MediumMacchiato,
-  Espresso: MediumEspresso,
-  Mocha: MediumMocha,
-  Latte: MediumLatte,
-  Cappuccino: MediumCappuccino,
-};
-const largeCupComponentMap: Record<
-  string,
-  React.ComponentType<{ opacities: number }>
-> = {
-  Macchiato: LargeMacchiato,
-  Espresso: LargeEspresso,
-  Mocha: LargeMocha,
-  Latte: LargeLatte,
-  Cappuccino: LargeCappuccino,
+  Cappuccino,
+  Espresso,
+  Macchiato,
+  Mocha,
+  Latte,
 };
 
 const DrinkSize = ({ newDrinkSize, opacities, drinkName }: SizeProps) => {
   const [opacitiesSizeHover, setOpacitiesSizeHover] = useState([...opacities]);
-  const SmallCupComponent = smallCupComponentMap[drinkName];
-  const MediumCupComponent = mediumCupComponentMap[drinkName];
-  const LargeCupComponent = largeCupComponentMap[drinkName];
+  const CupComponent = cupSizeComponents[drinkName];
   useEffect(() => {
     setOpacitiesSizeHover(opacities);
   }, [opacities]);
 
-  const updateOpacitiesOne = (index: number) => {
-    const updatedOpacities = [...opacities];
-    updatedOpacities[index] = 1;
-    setOpacitiesSizeHover(updatedOpacities);
-  };
-  const updateOpacitiesZero = (index: number) => {
-    if (opacities[index] !== 1) {
+  const updateOpacities = (index: number, opacity: number) => {
+    if (opacity === 1) {
       const updatedOpacities = [...opacities];
-      updatedOpacities[index] = 0.4;
+      updatedOpacities[index] = opacity;
       setOpacitiesSizeHover(updatedOpacities);
+    } else {
+      if (opacities[index] !== 1) {
+        const updatedOpacities = [...opacities];
+        updatedOpacities[index] = 0.4;
+        setOpacitiesSizeHover(updatedOpacities);
+      }
     }
   };
+
   return (
     <div className="mx-6 my-5 flex flex-row items-center">
       <div className="select-none text-[20px] text-[#715D55]">Size</div>
       <div className="m-auto flex w-[60%] flex-row items-end justify-evenly">
-        <div
-          onClick={() => newDrinkSize(0)}
-          onMouseEnter={() => updateOpacitiesOne(0)}
-          onMouseLeave={() => updateOpacitiesZero(0)}
-        >
-          {opacitiesSizeHover[0] && SmallCupComponent && (
-            <SmallCupComponent opacities={opacitiesSizeHover[0]} />
-          )}
-        </div>
-        <div
-          onClick={() => newDrinkSize(1)}
-          onMouseEnter={() => updateOpacitiesOne(1)}
-          onMouseLeave={() => updateOpacitiesZero(1)}
-        >
-          {opacitiesSizeHover[1] && MediumCupComponent && (
-            <MediumCupComponent opacities={opacitiesSizeHover[1]} />
-          )}
-        </div>
-        <div
-          onClick={() => newDrinkSize(2)}
-          onMouseEnter={() => updateOpacitiesOne(2)}
-          onMouseLeave={() => updateOpacitiesZero(2)}
-        >
-          {opacitiesSizeHover[2] && LargeCupComponent && (
-            <LargeCupComponent opacities={opacitiesSizeHover[2]} />
-          )}
-        </div>
+        {opacitiesSizeHover.map((opacity, index) => (
+          <div
+            key={index}
+            onClick={() => newDrinkSize(index)}
+            onMouseEnter={() => updateOpacities(index, 1)}
+            onMouseLeave={() => updateOpacities(index, 0)}
+          >
+            {opacitiesSizeHover[0] && CupComponent && (
+              <CupComponent opacities={opacity} size={index} />
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

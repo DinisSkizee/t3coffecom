@@ -36,11 +36,11 @@ const BasketItem = ({
 }: BasketItemProps) => {
   const variantsList = separateVariants(variants);
   const iconComponents: IconComponents = {
-    espresso: <Espresso className="h-[49] w-[50px] drop-shadow-strDrop" />,
-    cappuccino: <Cappuccino className="h-[49] w-[50px] drop-shadow-strDrop" />,
-    macchiato: <Macchiato className="h-[56] w-[38px] drop-shadow-strDrop" />,
-    mocha: <Mocha className="h-[56] w-[38px] drop-shadow-strDrop" />,
-    latte: <Latte className="h-[56] w-[38px] drop-shadow-strDrop" />,
+    espresso: <Espresso size={3} className="drop-shadow-strDrop" />,
+    cappuccino: <Cappuccino size={3} className="drop-shadow-strDrop" />,
+    macchiato: <Macchiato size={3} className="drop-shadow-strDrop" />,
+    mocha: <Mocha size={3} className="drop-shadow-strDrop" />,
+    latte: <Latte size={3} className="drop-shadow-strDrop" />,
   };
   const iconComponent = iconComponents[productName.toLowerCase()];
 

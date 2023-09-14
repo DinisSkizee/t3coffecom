@@ -17,58 +17,43 @@ const SugarAmount = ({ newSugarAmount, opacitiesSugar }: SugarProps) => {
     setOpacitiesSugarHover(opacitiesSugar);
   }, [opacitiesSugar]);
 
-  const updateOpacitiesOne = (index: number) => {
-    const updatedOpacities = [...opacitiesSugar];
-    updatedOpacities[index] = 1;
-    setOpacitiesSugarHover(updatedOpacities);
-  };
-  const updateOpacitiesZero = (index: number) => {
-    if (opacitiesSugar[index] !== 1) {
+  const updateOpacities = (index: number, opacity: number) => {
+    if (opacity === 1) {
       const updatedOpacities = [...opacitiesSugar];
-      updatedOpacities[index] = 0.4;
+      updatedOpacities[index] = opacity;
       setOpacitiesSugarHover(updatedOpacities);
+    } else {
+      if (opacitiesSugar[index] !== 1) {
+        const updatedOpacities = [...opacitiesSugar];
+        updatedOpacities[index] = 0.4;
+        setOpacitiesSugarHover(updatedOpacities);
+      }
     }
   };
+
+  const sugarComponents = [
+    <NoSugar key={0} opacitiesSugar={opacitiesSugarHover[0] ?? 0} />,
+    <SmallSugar key={1} opacitiesSugar={opacitiesSugarHover[1] ?? 0} />,
+    <MediumSugar key={2} opacitiesSugar={opacitiesSugarHover[2] ?? 0} />,
+    <LargeSugar key={3} opacitiesSugar={opacitiesSugarHover[3] ?? 0} />,
+  ];
   return (
     <>
       <div className="m-6 flex flex-row items-center">
         <div className="select-none text-[20px] text-[#715D55]">Sugar</div>
         <div className="m-auto flex w-[60%] flex-row items-center justify-evenly">
-          {opacitiesSugarHover[0] && (
-            <div
-              onClick={() => newSugarAmount(0)}
-              onMouseEnter={() => updateOpacitiesOne(0)}
-              onMouseLeave={() => updateOpacitiesZero(0)}
-            >
-              <NoSugar opacitiesSugar={opacitiesSugarHover[0]} />
-            </div>
-          )}
-          {opacitiesSugarHover[1] && (
-            <div
-              onClick={() => newSugarAmount(1)}
-              onMouseEnter={() => updateOpacitiesOne(1)}
-              onMouseLeave={() => updateOpacitiesZero(1)}
-            >
-              <SmallSugar opacitiesSugar={opacitiesSugarHover[1]} />
-            </div>
-          )}
-          {opacitiesSugarHover[2] && (
-            <div
-              onClick={() => newSugarAmount(2)}
-              onMouseEnter={() => updateOpacitiesOne(2)}
-              onMouseLeave={() => updateOpacitiesZero(2)}
-            >
-              <MediumSugar opacitiesSugar={opacitiesSugarHover[2]} />
-            </div>
-          )}
-          {opacitiesSugarHover[3] && (
-            <div
-              onClick={() => newSugarAmount(3)}
-              onMouseEnter={() => updateOpacitiesOne(3)}
-              onMouseLeave={() => updateOpacitiesZero(3)}
-            >
-              <LargeSugar opacitiesSugar={opacitiesSugarHover[3]} />
-            </div>
+          {opacitiesSugarHover.map(
+            (opacity, index) =>
+              opacity && (
+                <div
+                  key={index}
+                  onClick={() => newSugarAmount(index)}
+                  onMouseEnter={() => updateOpacities(index, 1)}
+                  onMouseLeave={() => updateOpacities(index, 0)}
+                >
+                  {sugarComponents[index]}
+                </div>
+              ),
           )}
         </div>
       </div>
