@@ -1,24 +1,31 @@
-import Head from "next/head";
 import React, { useEffect } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import ThinBrownLine from "../components/ThinBrownLine";
+import Head from "next/head";
 import Link from "next/link";
-import BackArrow from "../components/svg/BackArrow";
-import MenuItem from "../components/MenuItem";
-import { useGetProductsQuery } from "../gql/schema";
-import { uppercaseFirstLetter } from "../helpers/uppercaseFirst";
-import useCartId from "~/hooks/useCartId";
+import useCartId from "@hooks/useCartId";
+import Footer from "@components/Footer";
+import Header from "@components/Header";
+import Basket from "@components/Basket";
+import MenuItem from "@components/MenuItem";
+import BackArrow from "@components/svg/BackArrow";
+import ThinBrownLine from "@components/ThinBrownLine";
+import { uppercaseFirstLetter } from "@helpers/uppercaseFirst";
+import { useGetCartQuery, useGetProductsQuery } from "@gql/schema";
 
 const SelectDrink = () => {
   const cartId = useCartId();
+  const { data: getCartData } = useGetCartQuery({
+    variables: {
+      cartId: cartId,
+    },
+  });
+
   const {
     data: productsData,
     loading: productsLoading,
     error: productsError,
   } = useGetProductsQuery({
     variables: {
-      first: 10,
+      first: 100,
     },
   });
 
@@ -42,6 +49,7 @@ const SelectDrink = () => {
                 <BackArrow />
               </Link>
               <div className="m-auto my-2 text-[24px] text-[#8C746A]">Menu</div>
+              <Basket basketAmount={getCartData?.cart?.totalQuantity ?? 0} />
             </div>
             <ThinBrownLine />
             {productsLoading && <div>Products Loading...</div>}

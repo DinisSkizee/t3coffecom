@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import SmallLatte from "../svg/CoffeeSize/Latte/SmallLatte";
-import SmallCappuccino from "../svg/CoffeeSize/Cappuccino/SmallCappuccino";
-import SmallMocha from "../svg/CoffeeSize/Mocha/SmallMocha";
-import SmallEspresso from "../svg/CoffeeSize/Espresso/SmallEspresso";
-import SmallMacchiato from "../svg/CoffeeSize/Macchiato/SmallMacchiato";
-import MediumLatte from "../svg/CoffeeSize/Latte/MediumLatte";
-import MediumCappuccino from "../svg/CoffeeSize/Cappuccino/MediumCappuccino";
-import MediumMocha from "../svg/CoffeeSize/Mocha/MediumMocha";
-import MediumEspresso from "../svg/CoffeeSize/Espresso/MediumEspresso";
-import MediumMacchiato from "../svg/CoffeeSize/Macchiato/MediumMacchiato";
-import LargeEspresso from "../svg/CoffeeSize/Espresso/LargeEspresso";
-import LargeMocha from "../svg/CoffeeSize/Mocha/LargeMocha";
-import LargeCappuccino from "../svg/CoffeeSize/Cappuccino/LargeCappuccino";
-import LargeLatte from "../svg/CoffeeSize/Latte/LargeLatte";
-import LargeMacchiato from "../svg/CoffeeSize/Macchiato/LargeMacchiato";
+import SmallLatte from "@svg/CoffeeSize/Latte/SmallLatte";
+import LargeMocha from "@svg/CoffeeSize/Mocha/LargeMocha";
+import LargeLatte from "@svg/CoffeeSize/Latte/LargeLatte";
+import SmallMocha from "@svg/CoffeeSize/Mocha/SmallMocha";
+import MediumLatte from "@svg/CoffeeSize/Latte/MediumLatte";
+import MediumMocha from "@svg/CoffeeSize/Mocha/MediumMocha";
+import SmallEspresso from "@svg/CoffeeSize/Espresso/SmallEspresso";
+import LargeEspresso from "@svg/CoffeeSize/Espresso/LargeEspresso";
+import MediumEspresso from "@svg/CoffeeSize/Espresso/MediumEspresso";
+import SmallMacchiato from "@svg/CoffeeSize/Macchiato/SmallMacchiato";
+import LargeMacchiato from "@svg/CoffeeSize/Macchiato/LargeMacchiato";
+import MediumMacchiato from "@svg/CoffeeSize/Macchiato/MediumMacchiato";
+import SmallCappuccino from "@svg/CoffeeSize/Cappuccino/SmallCappuccino";
+import LargeCappuccino from "@svg/CoffeeSize/Cappuccino/LargeCappuccino";
+import MediumCappuccino from "@svg/CoffeeSize/Cappuccino/MediumCappuccino";
 
 interface SizeProps {
   newDrinkSize: (size: number) => void;

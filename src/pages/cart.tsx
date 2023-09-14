@@ -1,20 +1,20 @@
-import Head from "next/head";
 import React, { useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import BackArrow from "~/components/svg/BackArrow";
+import Head from "next/head";
 import Link from "next/link";
-import Basket from "~/components/Basket";
 import {
   useAddCartLinesMutation,
   useGetCartQuery,
   useUpdateCartLinesMutation,
-} from "../gql/schema";
-import useCartId from "~/hooks/useCartId";
-import BasketItem from "~/components/Cart/BasketItem";
-import ThinBrownLine from "~/components/ThinBrownLine";
-import TotalAmount from "~/components/TotalAmount";
-import CheckoutButton from "~/components/Cart/CheckoutButton";
+} from "@gql/schema";
+import useCartId from "@hooks/useCartId";
+import Header from "@components/Header";
+import Footer from "@components/Footer";
+import Basket from "@components/Basket";
+import TotalAmount from "@components/TotalAmount";
+import BackArrow from "@components/svg/BackArrow";
+import BasketItem from "@components/Cart/BasketItem";
+import ThinBrownLine from "@components/ThinBrownLine";
+import CheckoutButton from "@components/Cart/CheckoutButton";
 
 const Cart = () => {
   const cartId = useCartId();

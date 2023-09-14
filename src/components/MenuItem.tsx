@@ -1,11 +1,11 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import ThinBrownLine from "./ThinBrownLine";
-import Espresso from "./svg/Coffee/Espresso";
-import Cappuccino from "./svg/Coffee/Cappuccino";
-import Macchiato from "./svg/Coffee/Macchiato";
-import Mocha from "./svg/Coffee/Mocha";
-import Latte from "./svg/Coffee/Latte";
+import Mocha from "@svg/Coffee/Mocha";
+import Latte from "@svg/Coffee/Latte";
+import Espresso from "@svg/Coffee/Espresso";
+import Macchiato from "@svg/Coffee/Macchiato";
+import Cappuccino from "@svg/Coffee/Cappuccino";
 
 interface MenuItemProps {
   pathname: string;

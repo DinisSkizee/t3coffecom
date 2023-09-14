@@ -1,7 +1,7 @@
-import Head from "next/head";
 import React from "react";
-import Header from "../components/Header";
+import Head from "next/head";
 import Link from "next/link";
+import Header from "@components/Header";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 
