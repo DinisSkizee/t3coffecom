@@ -15446,79 +15446,6 @@ export type GetProductsQueryResult = Apollo.QueryResult<
   GetProductsQuery,
   GetProductsQueryVariables
 >;
-export const SingleProductDocument = gql`
-  query SingleProduct($handle: String!) {
-    productByHandle(handle: $handle) {
-      title
-      description
-      updatedAt
-      tags
-      priceRange {
-        minVariantPrice {
-          amount
-        }
-      }
-      variants(first: 1) {
-        edges {
-          node {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useSingleProductQuery__
- *
- * To run a query within a React component, call `useSingleProductQuery` and pass it any options that fit your needs.
- * When your component renders, `useSingleProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSingleProductQuery({
- *   variables: {
- *      handle: // value for 'handle'
- *   },
- * });
- */
-export function useSingleProductQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    SingleProductQuery,
-    SingleProductQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SingleProductQuery, SingleProductQueryVariables>(
-    SingleProductDocument,
-    options,
-  );
-}
-export function useSingleProductLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    SingleProductQuery,
-    SingleProductQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SingleProductQuery, SingleProductQueryVariables>(
-    SingleProductDocument,
-    options,
-  );
-}
-export type SingleProductQueryHookResult = ReturnType<
-  typeof useSingleProductQuery
->;
-export type SingleProductLazyQueryHookResult = ReturnType<
-  typeof useSingleProductLazyQuery
->;
-export type SingleProductQueryResult = Apollo.QueryResult<
-  SingleProductQuery,
-  SingleProductQueryVariables
->;
 export const UpdateCartLinesDocument = gql`
   mutation UpdateCartLines($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
@@ -15832,32 +15759,6 @@ export type GetProductsQuery = {
       };
     }>;
   };
-};
-
-export type SingleProductQueryVariables = Exact<{
-  handle: Scalars["String"]["input"];
-}>;
-
-export type SingleProductQuery = {
-  __typename?: "QueryRoot";
-  productByHandle?: {
-    __typename?: "Product";
-    title: string;
-    description: string;
-    updatedAt: any;
-    tags: Array<string>;
-    priceRange: {
-      __typename?: "ProductPriceRange";
-      minVariantPrice: { __typename?: "MoneyV2"; amount: any };
-    };
-    variants: {
-      __typename?: "ProductVariantConnection";
-      edges: Array<{
-        __typename?: "ProductVariantEdge";
-        node: { __typename?: "ProductVariant"; id: string };
-      }>;
-    };
-  } | null;
 };
 
 export type UpdateCartLinesMutationVariables = Exact<{
