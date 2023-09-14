@@ -60,13 +60,7 @@ const CartButton = ({
           className="absolute right-[5rem]"
           style={cartOpacity === 0 ? instantCartStyle : cartStyle}
         >
-          <svg
-            width="18"
-            height="16"
-            viewBox="0 0 18 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="18" height="16" viewBox="0 0 18 16" fill="none">
             <path
               d="M1.5 9.70676L4.65 13.5712C4.7555 13.7018 4.8904 13.8081 5.04474 13.8823C5.19908 13.9565 5.36891 13.9966 5.54169 13.9998C5.71448 14.003 5.8858 13.9691 6.04302 13.9006C6.20023 13.8321 6.33931 13.7308 6.45 13.6042L16.5 2"
               stroke="#F8E9D6"

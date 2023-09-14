@@ -41,13 +41,7 @@ const Header = () => {
 
       {/* Header Right Icons */}
       <div className="ml-auto flex flex-row gap-1.5">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -55,13 +49,7 @@ const Header = () => {
             fill="black"
           />
         </svg>
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -69,13 +57,7 @@ const Header = () => {
             fill="black"
           />
         </svg>
-        <svg
-          width="25"
-          height="12"
-          viewBox="0 0 25 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
           <rect
             opacity="0.35"
             x="0.5"

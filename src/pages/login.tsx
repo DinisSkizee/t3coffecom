@@ -44,13 +44,7 @@ const LoginPage = () => {
             {/* Login Header */}
             <div className="mt-2 flex flex-row items-center justify-center">
               <Link href="/start" className="mr-auto hover:drop-shadow-strDrop">
-                <svg
-                  width="8"
-                  height="13"
-                  viewBox="0 0 8 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"

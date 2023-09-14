@@ -20,7 +20,6 @@ const StartPage = () => {
               height="400"
               viewBox="0 0 375 331"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 opacity="0.342746"
@@ -37,8 +36,6 @@ const StartPage = () => {
               height="360"
               viewBox="0 0 360 360"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
             >
               <path
                 fillRule="evenodd"
@@ -861,22 +858,10 @@ const StartPage = () => {
           </div>
           {/* Img Selector */}
           <div className="flex h-[2rem] w-full flex-row justify-center gap-0.5">
-            <svg
-              width="14"
-              height="6"
-              viewBox="0 0 14 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="14" height="6" viewBox="0 0 14 6" fill="none">
               <rect width="14" height="6" rx="3" fill="#C28E79" />
             </svg>
-            <svg
-              width="14"
-              height="6"
-              viewBox="0 0 14 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="14" height="6" viewBox="0 0 14 6" fill="none">
               <rect opacity="0.2" width="14" height="6" rx="3" fill="#B98068" />
             </svg>
           </div>
@@ -904,13 +889,7 @@ const StartPage = () => {
             </div>
             <div className="flex w-full justify-center">
               <button className="flex h-[3.2rem] w-full items-center justify-center gap-1 rounded-full border border-[#4277BC] bg-white px-[3.5rem] text-[18px] font-bold leading-9 text-[#4277BC] hover:drop-shadow-strDrop">
-                <svg
-                  width="9"
-                  height="18"
-                  viewBox="0 0 9 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="9" height="18" viewBox="0 0 9 18" fill="none">
                   <path
                     id="Facebook"
                     d="M2.39793 17.3113L2.41078 9.83235H0.467752C0.215242 9.83235 0.0102943 9.62817 0.00932155 9.37566L3.43835e-06 6.96488C-0.000969332 6.71099 0.204592 6.50466 0.458485 6.50466H2.39798V4.17523C2.39798 1.47195 4.04898 0 6.46048 0H8.4393C8.69247 0 8.89778 0.205254 8.89778 0.458482V2.49126C8.89778 2.74439 8.69263 2.94959 8.43955 2.94975L7.22518 2.95031C5.91373 2.95031 5.65979 3.5735 5.65979 4.48805V6.50471H8.54149C8.81607 6.50471 9.0291 6.74447 8.99675 7.01715L8.71101 9.42793C8.68367 9.65864 8.48804 9.83245 8.25575 9.83245H5.67264L5.65979 17.3114L2.39793 17.3113Z"

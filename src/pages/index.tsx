@@ -35,7 +35,6 @@ export default function Home() {
           height="118"
           viewBox="0 0 116 118"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
           className="drop-shadow-strDrop"
         >
           <mask
@@ -90,7 +89,6 @@ export default function Home() {
           height="5"
           viewBox="0 0 140 5"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
           className="drop-shadow-strDrop"
         >
           <rect width="140" height="5" rx="2.5" fill="#2D140D" />

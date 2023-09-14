@@ -26,13 +26,7 @@ const ItemName = ({ name }: { name: string }) => {
 const ItemArrow = () => {
   return (
     <div className="ml-auto">
-      <svg
-        width="8"
-        height="13"
-        viewBox="0 0 8 13"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
         <path
           opacity="0.81942"
           fillRule="evenodd"

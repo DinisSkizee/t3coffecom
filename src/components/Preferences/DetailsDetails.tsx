@@ -30,13 +30,7 @@ const DrinkDetails = ({
             className="flex w-full items-center justify-center rounded-l-full border border-[#2D140D] text-[39px] hover:bg-[#B98068] hover:drop-shadow-md"
             onClick={decreaseDrinkAmount}
           >
-            <svg
-              width="13"
-              height="3"
-              viewBox="0 0 13 3"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="13" height="3" viewBox="0 0 13 3" fill="none">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -50,13 +44,7 @@ const DrinkDetails = ({
             className="flex w-full items-center justify-center rounded-r-full border border-[#2D140D] text-[32px] hover:bg-[#B98068] hover:drop-shadow-md"
             onClick={increaseDrinkAmount}
           >
-            <svg
-              width="13"
-              height="14"
-              viewBox="0 0 13 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="13" height="14" viewBox="0 0 13 14" fill="none">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
