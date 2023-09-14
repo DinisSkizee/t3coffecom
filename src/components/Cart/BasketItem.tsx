@@ -1,14 +1,14 @@
 import React from "react";
-import Espresso from "../svg/Coffee/Espresso";
-import Cappuccino from "../svg/Coffee/Cappuccino";
-import Macchiato from "../svg/Coffee/Macchiato";
-import Mocha from "../svg/Coffee/Mocha";
-import Latte from "../svg/Coffee/Latte";
+import Mocha from "@svg/Coffee/Mocha";
+import Latte from "@svg/Coffee/Latte";
+import Espresso from "@svg/Coffee/Espresso";
+import Macchiato from "@svg/Coffee/Macchiato";
+import Cappuccino from "@svg/Coffee/Cappuccino";
 import {
   type UpdateCartLinesMutationFn,
   type AddCartLinesMutationFn,
-} from "~/gql/schema";
-import { separateVariants } from "~/helpers/separateVariants";
+} from "@gql/schema";
+import { separateVariants } from "@helpers/separateVariants";
 
 interface BasketItemProps {
   productId: string;
@@ -34,7 +34,6 @@ const BasketItem = ({
   addProduct,
   removeProduct,
 }: BasketItemProps) => {
-  console.log(variants);
   const variantsList = separateVariants(variants);
   const iconComponents: IconComponents = {
     espresso: <Espresso className="h-[49] w-[50px] drop-shadow-strDrop" />,

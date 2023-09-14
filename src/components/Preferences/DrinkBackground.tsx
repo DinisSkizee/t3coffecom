@@ -1,9 +1,9 @@
 import React from "react";
-import Macchiato from "../svg/Coffee/Macchiato";
-import Espresso from "../svg/Coffee/Espresso";
-import Mocha from "../svg/Coffee/Mocha";
-import Latte from "../svg/Coffee/Latte";
-import Cappuccino from "../svg/Coffee/Cappuccino";
+import Mocha from "@svg/Coffee/Mocha";
+import Latte from "@svg/Coffee/Latte";
+import Espresso from "@svg/Coffee/Espresso";
+import Macchiato from "@svg/Coffee/Macchiato";
+import Cappuccino from "@svg/Coffee/Cappuccino";
 
 const drinkComponentMap: Record<
   string,

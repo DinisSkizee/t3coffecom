@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { type AddCartLinesMutationFn } from "~/gql/schema";
-import { type ProductVariant } from "~/hooks/useDrinkDetails";
+import { type AddCartLinesMutationFn } from "@gql/schema";
+import { type ProductVariant } from "@hooks/useDrinkDetails";
 
 interface CartButtonProps {
   setBasketAmount: (basketAmount: number) => void;

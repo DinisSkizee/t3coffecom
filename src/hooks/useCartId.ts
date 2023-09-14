@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useCreateCartMutation } from "~/gql/schema";
+import { useCreateCartMutation } from "@gql/schema";
 
 const useCartId = () => {
   const [cartId, setCartId] = useState("");

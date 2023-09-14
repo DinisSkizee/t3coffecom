@@ -1,6 +1,6 @@
 import Head from "next/head";
-import tw from "tailwind-styled-components";
 import Link from "next/link";
+import tw from "tailwind-styled-components";
 
 export const BgImage = tw.div`
   absolute

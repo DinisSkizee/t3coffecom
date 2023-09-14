@@ -1,6 +1,6 @@
 // useDrinkVariant.tsx
 import { useEffect, useState } from "react";
-import { useGetProductsQuery } from "~/gql/schema";
+import { useGetProductsQuery } from "@gql/schema";
 
 export interface ProductVariant {
   id: string;

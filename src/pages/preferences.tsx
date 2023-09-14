@@ -1,23 +1,23 @@
 import Head from "next/head";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Header from "../components/Header";
-import Link from "next/link";
-import ThinBrownLine from "../components/ThinBrownLine";
-import BackArrow from "../components/svg/BackArrow";
-import Footer from "../components/Footer";
-import Basket from "../components/Basket";
-import { useAddCartLinesMutation, useGetCartQuery } from "../gql/schema";
-import DrinkDetails from "../components/Preferences/DetailsDetails";
-import DrinkSize from "../components/Preferences/DrinkSize";
-import SugarAmount from "../components/Preferences/SugarAmount";
-import DrinkBackground from "../components/Preferences/DrinkBackground";
-import Additions from "../components/Preferences/Additions";
-import CartButton from "../components/Preferences/CartButton";
-import TotalAmount from "../components/TotalAmount";
-import useCartId from "../hooks/useCartId";
-import { useDrinkVariant } from "../hooks/useDrinkDetails";
-import { useTotalAmount } from "../hooks/useTotalAmount";
+import Header from "@components/Header";
+import ThinBrownLine from "@components/ThinBrownLine";
+import BackArrow from "@components/svg/BackArrow";
+import Footer from "@components/Footer";
+import Basket from "@components/Basket";
+import DrinkDetails from "@components/Preferences/DetailsDetails";
+import DrinkSize from "@components/Preferences/DrinkSize";
+import SugarAmount from "@components/Preferences/SugarAmount";
+import DrinkBackground from "@components/Preferences/DrinkBackground";
+import Additions from "@components/Preferences/Additions";
+import CartButton from "@components/Preferences/CartButton";
+import TotalAmount from "@components/TotalAmount";
+import useCartId from "@hooks/useCartId";
+import { useDrinkVariant } from "@hooks/useDrinkDetails";
+import { useTotalAmount } from "@hooks/useTotalAmount";
+import { useAddCartLinesMutation, useGetCartQuery } from "@gql/schema";
 
 const PreferencesPage = () => {
   const router = useRouter();
@@ -39,20 +39,9 @@ const PreferencesPage = () => {
   const [opacitiesAdditions, setOpacitiesAdditions] = useState([0.4, 0.4]);
   const [basketAmount, setBasketAmount] = useState(0);
 
-  const [
-    addCartLinesMutation,
-    {
-      data: basketItemsData,
-      loading: basketItemsLoading,
-      error: basketItemsError,
-    },
-  ] = useAddCartLinesMutation();
+  const [addCartLinesMutation] = useAddCartLinesMutation();
 
-  const {
-    data: getCartData,
-    loading: getCartLoading,
-    error: getCartError,
-  } = useGetCartQuery({
+  const { data: getCartData } = useGetCartQuery({
     variables: {
       cartId: cartId,
     },
@@ -74,8 +63,6 @@ const PreferencesPage = () => {
     additions,
     drinkAmount,
   );
-  console.log("drinkVariant", drinkVariant);
-  console.log("drinkPrice", drinkPrice);
 
   // 3. Calculate total amount
   const totalAmount = useTotalAmount(drinkPrice, drinkAmount);

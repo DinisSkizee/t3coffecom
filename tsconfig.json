@@ -18,13 +18,13 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@components/*": ["./src/components/*"],
       "@gql/*": ["./src/gql/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@public/*": ["./public/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@svg/*": ["./src/components/svg/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": [

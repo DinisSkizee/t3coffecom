@@ -1,6 +1,6 @@
 import React from "react";
-import ThinBrownLine from "./ThinBrownLine";
 import Link from "next/link";
+import ThinBrownLine from "./ThinBrownLine";
 
 const Footer = () => {
   return (

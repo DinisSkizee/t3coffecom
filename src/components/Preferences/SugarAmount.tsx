@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NoSugar from "../svg/SugarSize/NoSugar";
-import SmallSugar from "../svg/SugarSize/SmallSugar";
-import MediumSugar from "../svg/SugarSize/MediumSugar";
-import LargeSugar from "../svg/SugarSize/LargeSugar";
+import NoSugar from "@svg/SugarSize/NoSugar";
+import SmallSugar from "@svg/SugarSize/SmallSugar";
+import LargeSugar from "@svg/SugarSize/LargeSugar";
+import MediumSugar from "@svg/SugarSize/MediumSugar";
 
 interface SugarProps {
   newSugarAmount: (amount: number) => void;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Cream from "../svg/Additions/Cream";
-import Vanilla from "../svg/Additions/Vanilla";
+import Cream from "@svg/Additions/Cream";
+import Vanilla from "@svg/Additions/Vanilla";
 
 interface AdditionsProps {
   manageAdditions: (item: number) => void;
