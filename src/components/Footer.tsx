@@ -43,7 +43,7 @@ const Footer = () => {
           </svg>
         </div>
         {/* Cart */}
-        <div>
+        <Link href="/cart">
           <svg
             width="24"
             height="25"
@@ -104,9 +104,9 @@ const Footer = () => {
               />
             </g>
           </svg>
-        </div>
+        </Link>
         {/* Profile */}
-        <div>
+        <Link href="/profile">
           <svg
             width="22"
             height="23"
@@ -122,7 +122,7 @@ const Footer = () => {
               strokeWidth="2"
             />
           </svg>
-        </div>
+        </Link>
       </div>
     </div>
   );

@@ -75,7 +75,7 @@ const DrinkSize = ({ newDrinkSize, opacities, drinkName }: SizeProps) => {
   };
   return (
     <div className="mx-6 my-5 flex flex-row items-center">
-      <div className="text-[20px] text-[#715D55]">Size</div>
+      <div className="select-none text-[20px] text-[#715D55]">Size</div>
       <div className="m-auto flex w-[60%] flex-row items-end justify-evenly">
         <div
           onClick={() => newDrinkSize(0)}

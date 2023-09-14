@@ -1,5 +1,5 @@
-query GetCart($cardId: ID!) {
-  cart(id: $cardId) {
+query GetCart($cartId: ID!) {
+  cart(id: $cartId) {
     id
     createdAt
     updatedAt
@@ -9,9 +9,18 @@ query GetCart($cardId: ID!) {
         node {
           id
           quantity
+          cost {
+            totalAmount {
+              amount
+            }
+          }
           merchandise {
             ... on ProductVariant {
               id
+              title
+              product {
+                title
+              }
             }
           }
           attributes {

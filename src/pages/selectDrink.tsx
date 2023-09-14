@@ -8,8 +8,10 @@ import BackArrow from "../components/svg/BackArrow";
 import MenuItem from "../components/MenuItem";
 import { useGetProductsQuery } from "../gql/schema";
 import { uppercaseFirstLetter } from "../helpers/uppercaseFirst";
+import useCartId from "~/hooks/useCartId";
 
 const SelectDrink = () => {
+  const cartId = useCartId();
   const {
     data: productsData,
     loading: productsLoading,

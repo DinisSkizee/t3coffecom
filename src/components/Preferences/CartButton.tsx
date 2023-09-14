@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { type CreateCartMutation } from "~/gql/schema";
-import { type ProductVariant } from "~/pages/preferences";
+import { type AddCartLinesMutationFn } from "~/gql/schema";
+import { type ProductVariant } from "~/hooks/useDrinkDetails";
 
 interface CartButtonProps {
   setBasketAmount: (basketAmount: number) => void;
   basketAmount: number;
-  addCartLines: any;
+  addCartLines: AddCartLinesMutationFn;
   prodVariant: ProductVariant;
   cartId: string;
 }
@@ -21,7 +21,6 @@ const CartButton = ({
   const [displayText, setDisplayText] = useState("Add To Cart");
 
   const handleButtonClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     addCartLines({
       variables: {
         cartId: cartId,
@@ -29,6 +28,8 @@ const CartButton = ({
           merchandiseId: prodVariant.id,
         },
       },
+    }).catch((error) => {
+      console.log(error);
     });
     setBasketAmount(basketAmount + 1);
     setDisplayText("Added");
@@ -37,7 +38,7 @@ const CartButton = ({
     setTimeout(() => {
       setCartOpacity(0);
       setDisplayText("Add To Cart");
-    }, 500);
+    }, 1000);
   };
 
   const instantCartStyle = {
@@ -45,7 +46,7 @@ const CartButton = ({
   };
   const cartStyle = {
     opacity: cartOpacity,
-    transition: "0.3s ease-in",
+    transition: ".5s ease-in-out",
   };
 
   return (
@@ -56,7 +57,7 @@ const CartButton = ({
       >
         {displayText}
         <div
-          className="pl-4"
+          className="absolute right-[5rem]"
           style={cartOpacity === 0 ? instantCartStyle : cartStyle}
         >
           <svg

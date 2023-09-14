@@ -32,7 +32,7 @@ const SugarAmount = ({ newSugarAmount, opacitiesSugar }: SugarProps) => {
   return (
     <>
       <div className="m-6 flex flex-row items-center">
-        <div className="text-[20px] text-[#715D55]">Sugar</div>
+        <div className="select-none text-[20px] text-[#715D55]">Sugar</div>
         <div className="m-auto flex w-[60%] flex-row items-center justify-evenly">
           {opacitiesSugarHover[0] && (
             <div
