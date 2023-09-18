@@ -1,4 +1,4 @@
-/*eslint-disable*/
+/* eslint-disable */
 import {
   GraphQLResolveInfo,
   GraphQLScalarType,
@@ -15374,6 +15374,66 @@ export type GetCheckoutUrlQueryResult = Apollo.QueryResult<
   GetCheckoutUrlQuery,
   GetCheckoutUrlQueryVariables
 >;
+export const GetCustomerDocument = gql`
+  query GetCustomer($customerAccessToken: String!) {
+    customer(customerAccessToken: $customerAccessToken) {
+      id
+      email
+      phone
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+/**
+ * __useGetCustomerQuery__
+ *
+ * To run a query within a React component, call `useGetCustomerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCustomerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCustomerQuery({
+ *   variables: {
+ *      customerAccessToken: // value for 'customerAccessToken'
+ *   },
+ * });
+ */
+export function useGetCustomerQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCustomerQuery,
+    GetCustomerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCustomerQuery, GetCustomerQueryVariables>(
+    GetCustomerDocument,
+    options,
+  );
+}
+export function useGetCustomerLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCustomerQuery,
+    GetCustomerQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCustomerQuery, GetCustomerQueryVariables>(
+    GetCustomerDocument,
+    options,
+  );
+}
+export type GetCustomerQueryHookResult = ReturnType<typeof useGetCustomerQuery>;
+export type GetCustomerLazyQueryHookResult = ReturnType<
+  typeof useGetCustomerLazyQuery
+>;
+export type GetCustomerQueryResult = Apollo.QueryResult<
+  GetCustomerQuery,
+  GetCustomerQueryVariables
+>;
 export const GetProductsDocument = gql`
   query GetProducts($first: Int!) {
     products(first: $first) {
@@ -15445,6 +15505,61 @@ export type GetProductsLazyQueryHookResult = ReturnType<
 export type GetProductsQueryResult = Apollo.QueryResult<
   GetProductsQuery,
   GetProductsQueryVariables
+>;
+export const GetShopIdDocument = gql`
+  query GetShopId {
+    shop {
+      id
+    }
+  }
+`;
+
+/**
+ * __useGetShopIdQuery__
+ *
+ * To run a query within a React component, call `useGetShopIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShopIdQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetShopIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetShopIdQuery,
+    GetShopIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetShopIdQuery, GetShopIdQueryVariables>(
+    GetShopIdDocument,
+    options,
+  );
+}
+export function useGetShopIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetShopIdQuery,
+    GetShopIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetShopIdQuery, GetShopIdQueryVariables>(
+    GetShopIdDocument,
+    options,
+  );
+}
+export type GetShopIdQueryHookResult = ReturnType<typeof useGetShopIdQuery>;
+export type GetShopIdLazyQueryHookResult = ReturnType<
+  typeof useGetShopIdLazyQuery
+>;
+export type GetShopIdQueryResult = Apollo.QueryResult<
+  GetShopIdQuery,
+  GetShopIdQueryVariables
 >;
 export const UpdateCartLinesDocument = gql`
   mutation UpdateCartLines($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
@@ -15730,6 +15845,22 @@ export type GetCheckoutUrlQuery = {
   cart?: { __typename?: "Cart"; checkoutUrl: any } | null;
 };
 
+export type GetCustomerQueryVariables = Exact<{
+  customerAccessToken: Scalars["String"]["input"];
+}>;
+
+export type GetCustomerQuery = {
+  __typename?: "QueryRoot";
+  customer?: {
+    __typename?: "Customer";
+    id: string;
+    email?: string | null;
+    phone?: string | null;
+    createdAt: any;
+    updatedAt: any;
+  } | null;
+};
+
 export type GetProductsQueryVariables = Exact<{
   first: Scalars["Int"]["input"];
 }>;
@@ -15759,6 +15890,13 @@ export type GetProductsQuery = {
       };
     }>;
   };
+};
+
+export type GetShopIdQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetShopIdQuery = {
+  __typename?: "QueryRoot";
+  shop: { __typename?: "Shop"; id: string };
 };
 
 export type UpdateCartLinesMutationVariables = Exact<{

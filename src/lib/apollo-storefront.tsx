@@ -13,7 +13,7 @@ const httpLink = new HttpLink({
   },
 });
 
-export const MyApolloProvider = ({ children }: PropsWithChildren) => {
+export const ApolloStorefrontProvider = ({ children }: PropsWithChildren) => {
   const client = new ApolloClient({
     link: httpLink,
     cache: new InMemoryCache(),

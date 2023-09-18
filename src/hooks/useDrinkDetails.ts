@@ -1,6 +1,7 @@
 // useDrinkVariant.tsx
 import { useEffect, useState } from "react";
 import { useGetProductsQuery } from "@gql/schema";
+import { useDrinkDetails } from "@state/store";
 
 export interface ProductVariant {
   id: string;
@@ -12,16 +13,16 @@ interface MoneyV2 {
   amount: number;
 }
 
-export const useDrinkVariant = (
-  drinkName: string | undefined,
-  drinkSize: number,
-  additions: Record<string, number>,
-  drinkAmount: number,
-) => {
-  const [drinkVariant, setDrinkVariant] = useState<
-    ProductVariant | undefined
-  >();
-  const [drinkPrice, setDrinkPrice] = useState(0.0);
+export const useDrinkVariant = () => {
+  const {
+    drinkName,
+    drinkSize,
+    coffeeAdditions,
+    drinkAmount,
+    drinkPrice,
+    setDrinkPrice,
+  } = useDrinkDetails();
+  const [drinkVariant, setDrinkVariant] = useState<ProductVariant>();
   const { data: productsData } = useGetProductsQuery({
     variables: {
       first: 100,
@@ -46,8 +47,8 @@ export const useDrinkVariant = (
         variant.node.title.includes(sizeMapping[drinkSize] ?? "Medium"),
     );
 
-    const activeAdditions = Object.keys(additions).filter(
-      (key) => additions[key] === 1,
+    const activeAdditions = Object.keys(coffeeAdditions).filter(
+      (key) => coffeeAdditions[key as keyof typeof coffeeAdditions] === 1,
     );
 
     const filteredVariant = filteredVariantName?.find((variant) => {
@@ -69,7 +70,7 @@ export const useDrinkVariant = (
       setDrinkVariant(filteredVariant.node);
       setDrinkPrice(filteredVariant.node.price.amount as number);
     }
-  }, [productsData, drinkSize, additions, drinkName]);
+  }, [productsData, drinkSize, coffeeAdditions, drinkName]);
 
   useEffect(() => {
     const tempDrinkPrice = drinkVariant?.price.amount ?? 0 * drinkAmount;

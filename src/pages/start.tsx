@@ -867,7 +867,7 @@ const StartPage = () => {
           </div>
           {/* Title */}
           <div className="flex w-full justify-center">
-            <h1 className="w-[60%] text-center font-sans text-[34px] leading-9 text-[#8C746A]">
+            <h1 className="w-[60%] text-center font-sans text-[34px] leading-9 text-dark-brown">
               Get the best coffee in town!
             </h1>
           </div>
@@ -876,13 +876,13 @@ const StartPage = () => {
             <div className="flex w-full flex-row gap-4">
               <Link
                 href={{ pathname: "/todo", query: "start" }}
-                className="flex h-[3.2rem] w-full items-center justify-center rounded-full bg-[#B98068] text-[17px] font-semibold leading-9 text-white hover:drop-shadow-strDrop"
+                className="flex h-[3.2rem] w-full items-center justify-center rounded-full bg-almond-brown text-[17px] font-semibold leading-9 text-white hover:drop-shadow-strDrop"
               >
                 Register
               </Link>
               <Link
                 href="/login"
-                className="flex h-[3.2rem] w-full items-center justify-center rounded-full border border-[#B98068] bg-white text-[17px] font-semibold leading-9 text-[#B98068] hover:drop-shadow-strDrop"
+                className="flex h-[3.2rem] w-full items-center justify-center rounded-full border border-almond-brown bg-white text-[17px] font-semibold leading-9 text-almond-brown hover:drop-shadow-strDrop"
               >
                 Login
               </Link>
@@ -904,7 +904,7 @@ const StartPage = () => {
             href="/"
             className="mx-[34%] mb-5 mt-auto hover:drop-shadow-strDrop"
           >
-            <div className="flex h-[5px] justify-center rounded-full bg-[#2D140D]"></div>
+            <div className="flex h-[5px] justify-center rounded-full bg-superdark-brown"></div>
           </Link>
         </div>
       </div>

@@ -4,6 +4,7 @@ import Latte from "@svg/Coffee/Latte";
 import Espresso from "@svg/Coffee/Espresso";
 import Macchiato from "@svg/Coffee/Macchiato";
 import Cappuccino from "@svg/Coffee/Cappuccino";
+import { useDrinkDetails } from "@state/store";
 
 const drinkComponentMap: Record<
   string,
@@ -16,8 +17,9 @@ const drinkComponentMap: Record<
   Cappuccino: Cappuccino,
 };
 
-const DrinkBackground = ({ drink }: { drink: string }) => {
-  const DrinkComponent = drinkComponentMap[drink];
+const DrinkBackground = () => {
+  const { drinkName } = useDrinkDetails();
+  const DrinkComponent = drinkComponentMap[drinkName];
   return (
     <div className="flex h-[210px] items-center justify-center bg-background-light">
       {DrinkComponent && (

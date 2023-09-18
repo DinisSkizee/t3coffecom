@@ -20,7 +20,7 @@ export default function Home() {
       <Head>
         <title>CoffeeCom</title>
       </Head>
-      <div className="relative left-[50%] z-10 h-screen w-[414px] -translate-x-[50%] overflow-hidden bg-[#F8E8D4]">
+      <div className="relative left-[50%] z-10 h-screen w-[414px] -translate-x-[50%] overflow-hidden bg-light-brown">
         <BgImage />
         <div className="min-h-screen"></div>
       </div>
@@ -79,7 +79,7 @@ export default function Home() {
         </svg>
 
         {/* Title */}
-        <h2 className="text-5xl font-bold text-[#2D140D] drop-shadow-strDrop">
+        <h2 className="text-5xl font-bold text-superdark-brown drop-shadow-strDrop">
           CoffeeCOM
         </h2>
       </Link>
