@@ -34,20 +34,20 @@ const CssTextField = styled(TextField)({
 });
 
 const LoginPage = () => {
-  const { data } = useGetCustomerQuery({
-    variables: {
-      customerAccessToken:
-        localStorage.getItem("SHOPIFY_CUSTOMER_ACCESS_TOKEN") ?? "",
-    },
-  });
+  // const { data } = useGetCustomerQuery({
+  //   variables: {
+  //     customerAccessToken:
+  //       localStorage.getItem("SHOPIFY_CUSTOMER_ACCESS_TOKEN") ?? "",
+  //   },
+  // });
   useEffect(() => {
     login()
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }, []);
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
   return (
     <>
       <Head>
