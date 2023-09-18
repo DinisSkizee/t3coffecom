@@ -6,10 +6,6 @@ export interface CustomerClient {
   authorize: (redirectPath?: string) => Promise<void>;
   isLoggedIn: () => Promise<boolean>;
   login: () => Promise<void>;
-  //   query: (
-  //     query: string,
-  //     variables?: any,
-  //   ) => Promise<{ data: unknown; status: number; ok: boolean }>;
 }
 
 export function createCustomerClient({
