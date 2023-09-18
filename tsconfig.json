@@ -22,6 +22,8 @@
       "@lib/*": ["./src/lib/*"],
       "@public/*": ["./public/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@state/*": ["./src/state/*"],
+      "@styles/*": ["./src/styles/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@svg/*": ["./src/components/svg/*"],
       "@components/*": ["./src/components/*"]

@@ -1,5 +1,5 @@
 const ThinBrownLine = () => {
-  return <div className="h-[1px] w-[100%] bg-[#E6E1DE]" />;
+  return <div className="bg-superlight-brown h-[1px] w-[100%]" />;
 };
 
 export default ThinBrownLine;

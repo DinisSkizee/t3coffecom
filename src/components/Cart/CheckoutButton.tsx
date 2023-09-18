@@ -1,8 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import { useGetCheckoutUrlQuery } from "@gql/schema";
+import { useStoreCart } from "@state/store";
 
-const CheckoutButton = ({ cartId }: { cartId: string }) => {
+const CheckoutButton = () => {
+  const { cartId } = useStoreCart();
   const { data } = useGetCheckoutUrlQuery({
     variables: { cartId: cartId },
   });
@@ -11,7 +13,7 @@ const CheckoutButton = ({ cartId }: { cartId: string }) => {
       {data?.cart?.checkoutUrl && (
         <Link
           href={data?.cart?.checkoutUrl}
-          className="flex w-[90%] items-center justify-center rounded-full bg-[#B98068] py-3.5 text-white hover:drop-shadow-md"
+          className="flex w-[90%] items-center justify-center rounded-full bg-almond-brown py-3.5 text-white hover:drop-shadow-md"
         >
           Check out
         </Link>

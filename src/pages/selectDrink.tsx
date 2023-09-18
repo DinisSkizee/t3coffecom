@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
-import useCartId from "@hooks/useCartId";
+import useCartId from "@hooks/getCartId";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import Basket from "@components/Basket";
@@ -29,10 +29,6 @@ const SelectDrink = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(productsData?.products.edges);
-  }, [productsData]);
-
   return (
     <>
       <Head>
@@ -48,7 +44,9 @@ const SelectDrink = () => {
               <Link href={"/"}>
                 <BackArrow />
               </Link>
-              <div className="m-auto my-2 text-[24px] text-[#8C746A]">Menu</div>
+              <div className="m-auto my-2 text-[24px] text-dark-brown">
+                Menu
+              </div>
               <Basket basketAmount={getCartData?.cart?.totalQuantity ?? 0} />
             </div>
             <ThinBrownLine />
@@ -59,7 +57,7 @@ const SelectDrink = () => {
                 <MenuItem
                   key={edge.node.id}
                   pathname={"/preferences"}
-                  query={{ drink: edge.node.title }}
+                  query={{ drink: edge.node.title, amount: 1 }}
                   iconName={edge.node.title.toLowerCase()}
                   name={uppercaseFirstLetter(edge.node.title)}
                 />

@@ -6,7 +6,7 @@ import {
   useGetCartQuery,
   useUpdateCartLinesMutation,
 } from "@gql/schema";
-import useCartId from "@hooks/useCartId";
+import useCartId from "@hooks/getCartId";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import Basket from "@components/Basket";
@@ -18,6 +18,7 @@ import CheckoutButton from "@components/Cart/CheckoutButton";
 
 const Cart = () => {
   const cartId = useCartId();
+
   const { data: getCartData, refetch: refetchCartData } = useGetCartQuery({
     variables: {
       cartId: cartId,
@@ -46,7 +47,7 @@ const Cart = () => {
               <Link href={"/selectDrink"}>
                 <BackArrow />
               </Link>
-              <div className="m-auto my-2 select-none text-[24px] text-[#8C746A]">
+              <div className="m-auto my-2 select-none text-[24px] text-dark-brown">
                 Cart
               </div>
               <Basket basketAmount={getCartData?.cart?.totalQuantity ?? 0} />
@@ -63,7 +64,6 @@ const Cart = () => {
                       productName={edge.node.merchandise.product.title}
                       productPrice={edge.node.cost.totalAmount.amount}
                       productQuantity={edge.node.quantity}
-                      cartId={cartId}
                       variants={edge.node.merchandise.title}
                       addProduct={addCartLinesMutation}
                       removeProduct={updateCartLinesMutation}
@@ -75,12 +75,14 @@ const Cart = () => {
 
               {/* Total */}
               <div className="mt-auto">
-                <TotalAmount
-                  totalAmount={getCartData?.cart?.cost.totalAmount.amount}
-                />
+                {getCartData && (
+                  <TotalAmount
+                    totalAmount={getCartData?.cart?.cost.totalAmount.amount}
+                  />
+                )}
 
                 {/* Checkout */}
-                <CheckoutButton cartId={cartId} />
+                <CheckoutButton />
               </div>
             </div>
           </div>

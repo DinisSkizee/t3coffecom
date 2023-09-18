@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NoSugar from "@svg/SugarSize/NoSugar";
 import SmallSugar from "@svg/SugarSize/SmallSugar";
 import LargeSugar from "@svg/SugarSize/LargeSugar";
 import MediumSugar from "@svg/SugarSize/MediumSugar";
+import { useDrinkDetails } from "@state/store";
 
-interface SugarProps {
-  newSugarAmount: (amount: number) => void;
-  opacitiesSugar: number[];
-}
-
-const SugarAmount = ({ newSugarAmount, opacitiesSugar }: SugarProps) => {
-  const [opacitiesSugarHover, setOpacitiesSugarHover] = useState([
-    ...opacitiesSugar,
-  ]);
-  useEffect(() => {
-    setOpacitiesSugarHover(opacitiesSugar);
-  }, [opacitiesSugar]);
-
-  const updateOpacities = (index: number, opacity: number) => {
-    if (opacity === 1) {
-      const updatedOpacities = [...opacitiesSugar];
-      updatedOpacities[index] = opacity;
-      setOpacitiesSugarHover(updatedOpacities);
-    } else {
-      if (opacitiesSugar[index] !== 1) {
-        const updatedOpacities = [...opacitiesSugar];
-        updatedOpacities[index] = 0.4;
-        setOpacitiesSugarHover(updatedOpacities);
-      }
-    }
-  };
+const SugarAmount = () => {
+  const { newSugarAmount, opacitiesSugarHover, updateSugarOpacities } =
+    useDrinkDetails();
 
   const sugarComponents = [
     <NoSugar key={0} opacitiesSugar={opacitiesSugarHover[0] ?? 0} />,
@@ -40,7 +18,7 @@ const SugarAmount = ({ newSugarAmount, opacitiesSugar }: SugarProps) => {
   return (
     <>
       <div className="m-6 flex flex-row items-center">
-        <div className="select-none text-[20px] text-[#715D55]">Sugar</div>
+        <div className="select-none text-[20px] text-dark-brown">Sugar</div>
         <div className="m-auto flex w-[60%] flex-row items-center justify-evenly">
           {opacitiesSugarHover.map(
             (opacity, index) =>
@@ -48,8 +26,8 @@ const SugarAmount = ({ newSugarAmount, opacitiesSugar }: SugarProps) => {
                 <div
                   key={index}
                   onClick={() => newSugarAmount(index)}
-                  onMouseEnter={() => updateOpacities(index, 1)}
-                  onMouseLeave={() => updateOpacities(index, 0)}
+                  onMouseEnter={() => updateSugarOpacities(index, 1)}
+                  onMouseLeave={() => updateSugarOpacities(index, 0)}
                 >
                   {sugarComponents[index]}
                 </div>

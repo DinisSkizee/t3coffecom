@@ -4,6 +4,14 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "superlight-brown": "#E6E1DE",
+        "light-brown": "#FDE9DA",
+        "almond-brown": "#B98068",
+        "dark-brown": "#8C746A",
+        "darker-brown": "#383537",
+        "superdark-brown": "#2D140D",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -11,6 +19,7 @@ export default {
         "pattern-background": "url('../../public/img/patbg.png')",
         "background-light": "url('../../public/img/coffeelight.png')",
       },
+      backgroundColor: {},
       keyframes: {
         marquee: {
           "0%": { transform: "translateY(-50%)" },

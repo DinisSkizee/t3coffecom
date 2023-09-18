@@ -1,118 +1,66 @@
 import Head from "next/head";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Header from "@components/Header";
 import ThinBrownLine from "@components/ThinBrownLine";
 import BackArrow from "@components/svg/BackArrow";
 import Footer from "@components/Footer";
 import Basket from "@components/Basket";
-import DrinkDetails from "@components/Preferences/DetailsDetails";
+import DrinkDetails from "@components/Preferences/DrinkDetails";
 import DrinkSize from "@components/Preferences/DrinkSize";
 import SugarAmount from "@components/Preferences/SugarAmount";
 import DrinkBackground from "@components/Preferences/DrinkBackground";
-import Additions from "@components/Preferences/Additions";
+import CoffeeAdditions from "@components/Preferences/CoffeeAdditions";
 import CartButton from "@components/Preferences/CartButton";
 import TotalAmount from "@components/TotalAmount";
-import useCartId from "@hooks/useCartId";
+import useCartId from "@hooks/getCartId";
 import { useDrinkVariant } from "@hooks/useDrinkDetails";
-import { useTotalAmount } from "@hooks/useTotalAmount";
-import { useAddCartLinesMutation, useGetCartQuery } from "@gql/schema";
+import { useGetCartQuery } from "@gql/schema";
+import { useDrinkDetails } from "@state/store";
 
 const PreferencesPage = () => {
   const router = useRouter();
   const cartId = useCartId();
+  const { drinkName, drinkAmount, setDrinkAmount, setDrinkName } =
+    useDrinkDetails();
 
   // Get the query parameter from the URL
-  const { drink } = router.query;
+  const { drink: queryDrink, amount: queryAmount } = useMemo(
+    () => router.query,
+    [router.query],
+  );
 
-  const [drinkName, setDrinkName] = useState("");
-  const [drinkAmount, setDrinkAmount] = useState(0);
-  const [drinkSize, setDrinkSize] = useState(1);
-  const [opacitiesSize, setOpacitiesSize] = useState([0.4, 1, 0.4]);
-  const [sugarAmount, setSugarAmount] = useState(0);
-  const [opacitiesSugar, setOpacitiesSugar] = useState([1, 0.4, 0.4, 0.4]);
-  const [additions, setAdditions] = useState<Record<string, number>>({
-    Cream: 0,
-    Vanilla: 0,
-  });
-  const [opacitiesAdditions, setOpacitiesAdditions] = useState([0.4, 0.4]);
-  const [basketAmount, setBasketAmount] = useState(0);
-
-  const [addCartLinesMutation] = useAddCartLinesMutation();
-
+  // Get Cart Data
   const { data: getCartData } = useGetCartQuery({
     variables: {
       cartId: cartId,
     },
   });
 
+  // Memoize getCartData
+  const memoizedGetCartData = useMemo(() => getCartData, [getCartData]);
+
   // 1. Check if the drink parameter is a string
   useEffect(() => {
-    if (typeof drink === "string") {
-      setDrinkName(drink);
+    if (router.isReady) {
+      setDrinkName(queryDrink as string);
+      setDrinkAmount(Number(queryAmount));
     } else {
       setDrinkName("No drink parameter found");
     }
-  }, [drink]);
+  }, [router.isReady]);
 
   // 2. Get the drink variant
-  const { drinkVariant, drinkPrice } = useDrinkVariant(
-    drinkName,
-    drinkSize,
-    additions,
-    drinkAmount,
-  );
+  const { drinkVariant, drinkPrice } = useDrinkVariant();
 
   // 3. Calculate total amount
-  const totalAmount = useTotalAmount(drinkPrice, drinkAmount);
+  const totalAmount = useMemo(
+    () => drinkPrice * drinkAmount,
+    [drinkPrice, drinkAmount],
+  );
 
-  /*  HELPER FUNCTIONS  */
-  // Increase/Decrease drink amount
-  const increaseDrinkAmount = () => {
-    setDrinkAmount(drinkAmount + 1);
-  };
-  const decreaseDrinkAmount = () => {
-    if (drinkAmount > 0) setDrinkAmount(drinkAmount - 1);
-  };
-
-  // Update drink size
-  const newDrinkSize = (size: number) => {
-    setDrinkSize(size);
-
-    const updatedOpacities = opacitiesSize.map((_, i) =>
-      i === size ? 1 : 0.4,
-    );
-    setOpacitiesSize(updatedOpacities);
-  };
-
-  // Update sugar amount
-  const newSugarAmount = (amount: number) => {
-    setSugarAmount(amount);
-
-    const updatedOpacities = opacitiesSugar.map((_, i) =>
-      i === amount ? 1 : 0.4,
-    );
-    setOpacitiesSugar(updatedOpacities);
-  };
-
-  // Update additions
-  const manageAdditions = (item: number) => {
-    const extra = item === 0 ? "Cream" : "Vanilla";
-    const updatedAdditions = {
-      ...additions,
-      [extra]: additions[extra] === 1 ? 0 : 1,
-    };
-
-    setAdditions(updatedAdditions);
-
-    const updatedAdditionsOpacities = opacitiesAdditions.map((value, i) =>
-      i === item ? (value === 1 ? 0.4 : 1) : value,
-    );
-    setOpacitiesAdditions(updatedAdditionsOpacities);
-  };
-
-  const title = "Preferences " + drinkName;
+  const title = useMemo(() => "Preferences " + drinkName, [drinkName]);
   return (
     <>
       <Head>
@@ -128,60 +76,38 @@ const PreferencesPage = () => {
               <Link href={"/selectDrink"}>
                 <BackArrow />
               </Link>
-              <div className="m-auto my-2 select-none text-[24px] text-[#8C746A]">
+              <div className="m-auto my-2 select-none text-[24px] text-dark-brown">
                 Preferences
               </div>
-              <Basket basketAmount={getCartData?.cart?.totalQuantity ?? 0} />
+              <Basket
+                basketAmount={memoizedGetCartData?.cart?.totalQuantity ?? 0}
+              />
             </div>
             {/* Bg & Icon */}
             {drinkVariant ? (
               <>
-                {drink && <DrinkBackground drink={drinkName} />}
+                {queryDrink && <DrinkBackground />}
                 {/* Coffee Details */}
-                <DrinkDetails
-                  increaseDrinkAmount={increaseDrinkAmount}
-                  decreaseDrinkAmount={decreaseDrinkAmount}
-                  drinkAmount={drinkAmount}
-                  drinkPrice={drinkPrice}
-                  drinkName={drinkName}
-                />
+                <DrinkDetails />
                 <ThinBrownLine />
 
                 {/* Size */}
-                <DrinkSize
-                  drinkName={drinkName}
-                  opacities={opacitiesSize}
-                  newDrinkSize={newDrinkSize}
-                />
+                <DrinkSize />
                 <ThinBrownLine />
 
                 {/* Sugar */}
-                <SugarAmount
-                  newSugarAmount={newSugarAmount}
-                  opacitiesSugar={opacitiesSugar}
-                />
+                <SugarAmount />
                 <ThinBrownLine />
 
-                {/* Additions */}
-                <Additions
-                  manageAdditions={manageAdditions}
-                  opacitiesAdditions={opacitiesAdditions}
-                />
+                {/* CoffeeAdditions */}
+                <CoffeeAdditions />
                 <ThinBrownLine />
 
                 {/* Total */}
                 <TotalAmount totalAmount={totalAmount} />
 
                 {/* Add To Cart */}
-                {drinkVariant && cartId && totalAmount > 0 && (
-                  <CartButton
-                    setBasketAmount={setBasketAmount}
-                    basketAmount={basketAmount}
-                    addCartLines={addCartLinesMutation}
-                    prodVariant={drinkVariant}
-                    cartId={cartId}
-                  />
-                )}
+                {drinkVariant && cartId && totalAmount > 0 && <CartButton />}
               </>
             ) : (
               <div>Invalid Drink</div>

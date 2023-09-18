@@ -17,7 +17,7 @@ type IconComponents = Record<string, JSX.Element>;
 
 const ItemName = ({ name }: { name: string }) => {
   return (
-    <div className="ml-6 pt-1 text-[20px] font-medium text-[#2D140D]">
+    <div className="ml-6 pt-1 text-[20px] font-medium text-superdark-brown">
       {name}
     </div>
   );
