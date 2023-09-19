@@ -102,7 +102,7 @@ const PreferencesPage = () => {
                 <TotalAmount totalAmount={totalAmount} />
 
                 {/* Add To Cart */}
-                {coffeeVariant && cartId && totalAmount > 0 && <CartButton />}
+                <CartButton />
               </>
             ) : (
               <div>Invalid Drink</div>
