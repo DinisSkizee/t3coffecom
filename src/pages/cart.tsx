@@ -60,7 +60,7 @@ const Cart = () => {
                   <div key={edge.node.id}>
                     <BasketItem
                       productId={edge.node.merchandise.id}
-                      lineId={edge?.node.id ?? ""}
+                      lineId={edge.node.id}
                       productName={edge.node.merchandise.product.title}
                       productPrice={edge.node.cost.totalAmount.amount}
                       productQuantity={edge.node.quantity}
