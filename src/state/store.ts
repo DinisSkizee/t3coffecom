@@ -16,8 +16,8 @@ const getDrinkInitialState = () => ({
     Vanilla: 0,
   },
   opacitiesAdditionsHover: [0.4, 0.4],
-  opacitiesSizeHover: [0.4, 0.4, 0.4],
-  opacitiesSugarHover: [0.4, 0.4, 0.4, 0.4],
+  opacitiesSizeHover: [0.4, 1, 0.4],
+  opacitiesSugarHover: [1, 0.4, 0.4, 0.4],
   drinkVariant: undefined as ProductVariant | undefined,
 });
 
