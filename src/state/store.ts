@@ -18,7 +18,7 @@ const getDrinkInitialState = () => ({
   opacitiesAdditionsHover: [0.4, 0.4],
   opacitiesSizeHover: [0.4, 0.4, 0.4],
   opacitiesSugarHover: [0.4, 0.4, 0.4, 0.4],
-  drinkVariant: {} as ProductVariant,
+  drinkVariant: undefined as ProductVariant | undefined,
 });
 
 export const useDrinkDetails = create(

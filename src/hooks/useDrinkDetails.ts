@@ -19,10 +19,10 @@ export const useDrinkVariant = () => {
     drinkSize,
     coffeeAdditions,
     drinkAmount,
-    drinkPrice,
     setDrinkPrice,
+    setDrinkVariant,
   } = useDrinkDetails();
-  const [drinkVariant, setDrinkVariant] = useState<ProductVariant>();
+  const [coffeeVariant, setCoffeeVariant] = useState<ProductVariant>();
   const { data: productsData } = useGetProductsQuery({
     variables: {
       first: 100,
@@ -68,14 +68,15 @@ export const useDrinkVariant = () => {
 
     if (filteredVariant) {
       setDrinkVariant(filteredVariant.node);
+      setCoffeeVariant(filteredVariant.node);
       setDrinkPrice(filteredVariant.node.price.amount as number);
     }
   }, [productsData, drinkSize, coffeeAdditions, drinkName]);
 
   useEffect(() => {
-    const tempDrinkPrice = drinkVariant?.price.amount ?? 0 * drinkAmount;
+    const tempDrinkPrice = coffeeVariant?.price.amount ?? 0 * drinkAmount;
     setDrinkPrice(tempDrinkPrice);
-  }, [drinkVariant, drinkAmount]);
+  }, [coffeeVariant, drinkAmount]);
 
-  return { drinkVariant, drinkPrice };
+  return { coffeeVariant };
 };
