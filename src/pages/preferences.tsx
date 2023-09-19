@@ -22,14 +22,8 @@ import { useDrinkDetails } from "@state/store";
 const PreferencesPage = () => {
   const router = useRouter();
   const cartId = useCartId();
-  const { drinkName, drinkAmount, setDrinkAmount, setDrinkName } =
+  const { drinkName, drinkAmount, setDrinkAmount, setDrinkName, drinkPrice } =
     useDrinkDetails();
-
-  // Get the query parameter from the URL
-  const { drink: queryDrink, amount: queryAmount } = useMemo(
-    () => router.query,
-    [router.query],
-  );
 
   // Get Cart Data
   const { data: getCartData } = useGetCartQuery({
@@ -38,12 +32,15 @@ const PreferencesPage = () => {
     },
   });
 
-  // Memoize getCartData
-  const memoizedGetCartData = useMemo(() => getCartData, [getCartData]);
+  // Get the drink variant
+  const { coffeeVariant } = useDrinkVariant();
 
-  // 1. Check if the drink parameter is a string
+  // Check if the drink parameter is a string
   useEffect(() => {
     if (router.isReady) {
+      // Get the query parameter from the URL
+      const { drink: queryDrink, amount: queryAmount } = router.query;
+
       setDrinkName(queryDrink as string);
       setDrinkAmount(Number(queryAmount));
     } else {
@@ -51,13 +48,13 @@ const PreferencesPage = () => {
     }
   }, [router.isReady]);
 
-  // 2. Get the drink variant
-  const { drinkVariant, drinkPrice } = useDrinkVariant();
+  // Calculate total amount
+  const totalAmount = drinkPrice * drinkAmount;
 
-  // 3. Calculate total amount
-  const totalAmount = useMemo(
-    () => drinkPrice * drinkAmount,
-    [drinkPrice, drinkAmount],
+  // Memoize getCartData
+  const memoizedGetCartData = useMemo(
+    () => getCartData?.cart?.totalQuantity,
+    [getCartData?.cart?.totalQuantity],
   );
 
   const title = useMemo(() => "Preferences " + drinkName, [drinkName]);
@@ -79,14 +76,12 @@ const PreferencesPage = () => {
               <div className="m-auto my-2 select-none text-[24px] text-dark-brown">
                 Preferences
               </div>
-              <Basket
-                basketAmount={memoizedGetCartData?.cart?.totalQuantity ?? 0}
-              />
+              <Basket basketAmount={memoizedGetCartData ?? 0} />
             </div>
             {/* Bg & Icon */}
-            {drinkVariant ? (
+            {coffeeVariant ? (
               <>
-                {queryDrink && <DrinkBackground />}
+                <DrinkBackground />
                 {/* Coffee Details */}
                 <DrinkDetails />
                 <ThinBrownLine />
@@ -107,7 +102,7 @@ const PreferencesPage = () => {
                 <TotalAmount totalAmount={totalAmount} />
 
                 {/* Add To Cart */}
-                {drinkVariant && cartId && totalAmount > 0 && <CartButton />}
+                {coffeeVariant && cartId && totalAmount > 0 && <CartButton />}
               </>
             ) : (
               <div>Invalid Drink</div>
