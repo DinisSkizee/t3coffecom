@@ -1,10 +1,5 @@
 import Link from "next/link";
-import { type Metadata } from "next";
 import Header from "@components/Header";
-
-export const metadata: Metadata = {
-  title: "CoffeeCom - Start",
-};
 
 const StartPage = () => {
   return (
