@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { useGetCheckoutUrlQuery } from "@gql/schema";
+import { useGetCheckoutUrlQuery } from "src/gql/schema";
 import { useStoreCart } from "@state/store";
 
 const CheckoutButton = () => {

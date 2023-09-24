@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import React, { useEffect, useMemo } from "react";
-import { useRouter } from "next/router";
+import React, { useMemo } from "react";
 import Header from "@components/Header";
 import ThinBrownLine from "@components/ThinBrownLine";
 import BackArrow from "@components/svg/BackArrow";
@@ -14,39 +13,30 @@ import DrinkBackground from "@components/Preferences/DrinkBackground";
 import CoffeeAdditions from "@components/Preferences/CoffeeAdditions";
 import CartButton from "@components/Preferences/CartButton";
 import TotalAmount from "@components/TotalAmount";
-import useCartId from "@hooks/getCartId";
-import { useDrinkVariant } from "@hooks/useDrinkDetails";
-import { useGetCartQuery } from "@gql/schema";
-import { useDrinkDetails } from "@state/store";
+import { type ProductVariant } from "src/hooks/useDrinkDetails";
+import { useGetCartQuery } from "src/gql/schema";
 
-const PreferencesPage = () => {
-  const router = useRouter();
-  const cartId = useCartId();
-  const { drinkName, drinkAmount, setDrinkAmount, setDrinkName, drinkPrice } =
-    useDrinkDetails();
+interface HomePageProps {
+  cartId: string;
+  drinkName: string;
+  drinkAmount: number;
+  drinkPrice: number;
+  coffeeVariant: ProductVariant | undefined;
+}
 
+export default function PreferencesPage({
+  cartId,
+  drinkName,
+  drinkAmount,
+  drinkPrice,
+  coffeeVariant,
+}: HomePageProps) {
   // Get Cart Data
   const { data: getCartData } = useGetCartQuery({
     variables: {
       cartId: cartId,
     },
   });
-
-  // Get the drink variant
-  const { coffeeVariant } = useDrinkVariant();
-
-  // Check if the drink parameter is a string
-  useEffect(() => {
-    if (router.isReady) {
-      // Get the query parameter from the URL
-      const { drink: queryDrink, amount: queryAmount } = router.query;
-
-      setDrinkName(queryDrink as string);
-      setDrinkAmount(Number(queryAmount));
-    } else {
-      setDrinkName("No drink parameter found");
-    }
-  }, [router.isReady]);
 
   // Calculate total amount
   const totalAmount = drinkPrice * drinkAmount;
@@ -56,8 +46,8 @@ const PreferencesPage = () => {
     () => getCartData?.cart?.totalQuantity,
     [getCartData?.cart?.totalQuantity],
   );
-
   const title = useMemo(() => "Preferences " + drinkName, [drinkName]);
+
   return (
     <>
       <Head>
@@ -113,6 +103,4 @@ const PreferencesPage = () => {
       </div>
     </>
   );
-};
-
-export default PreferencesPage;
+}

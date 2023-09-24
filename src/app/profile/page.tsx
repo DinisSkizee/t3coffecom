@@ -21,7 +21,7 @@ const Profile = () => {
               <Link href={"/selectDrink"}>
                 <BackArrow />
               </Link>
-              <div className="text-dark-brown m-auto my-2 select-none text-[24px]">
+              <div className="m-auto my-2 select-none text-[24px] text-dark-brown">
                 Profile
               </div>
             </div>
@@ -90,7 +90,7 @@ const Profile = () => {
                     />
                   </svg>
                 </div>
-                <div className="text-almond-brown select-none">
+                <div className="select-none text-almond-brown">
                   <h2 className="text-[22px] font-semibold">Leslie Flores</h2>
                   <div className="text-[14px]">
                     <p>27 York Pl</p>
@@ -101,15 +101,15 @@ const Profile = () => {
 
               {/* Buttons */}
               <div className="flex flex-col gap-10">
-                <div className="border-almond-brown text-almond-brown flex h-[80px] cursor-pointer select-none items-center justify-center rounded-2xl border-2 bg-background-light bg-cover text-[20px] font-semibold shadow-md hover:drop-shadow-strDrop">
+                <div className="flex h-[80px] cursor-pointer select-none items-center justify-center rounded-2xl border-2 border-almond-brown bg-background-light bg-cover text-[20px] font-semibold text-almond-brown shadow-md hover:drop-shadow-strDrop">
                   My Orders
                 </div>
-                <div className="border-almond-brown text-almond-brown flex h-[80px] cursor-pointer select-none items-center justify-center rounded-2xl border-2 bg-background-light bg-cover text-[20px] font-semibold shadow-md hover:drop-shadow-strDrop">
+                <div className="flex h-[80px] cursor-pointer select-none items-center justify-center rounded-2xl border-2 border-almond-brown bg-background-light bg-cover text-[20px] font-semibold text-almond-brown shadow-md hover:drop-shadow-strDrop">
                   Settings
                 </div>
               </div>
             </div>
-            <div className="border-almond-brown text-almond-brown mx-10 mb-4 mt-auto flex h-[47px] cursor-pointer select-none items-center justify-center gap-2 rounded-2xl border-2 text-[20px] font-bold shadow-sm hover:shadow-md">
+            <div className="mx-10 mb-4 mt-auto flex h-[47px] cursor-pointer select-none items-center justify-center gap-2 rounded-2xl border-2 border-almond-brown text-[20px] font-bold text-almond-brown shadow-sm hover:shadow-md">
               <svg
                 width="25"
                 height="27"

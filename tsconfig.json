@@ -18,10 +18,10 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@gql/*": ["./src/gql/*"],
-      "@lib/*": ["./src/lib/*"],
+      "@gql/*": ["src/gql/*"],
+      "@lib/*": ["src/app/lib/*"],
       "@public/*": ["./public/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@state/*": ["./src/state/*"],
       "@styles/*": ["./src/styles/*"],
       "@helpers/*": ["./src/helpers/*"],
@@ -36,7 +36,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "babel.config.js"
+    "babel.config.js",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

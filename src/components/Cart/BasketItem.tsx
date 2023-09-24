@@ -7,7 +7,7 @@ import Cappuccino from "@svg/Coffee/Cappuccino";
 import {
   type UpdateCartLinesMutationFn,
   type AddCartLinesMutationFn,
-} from "@gql/schema";
+} from "src/gql/schema";
 import { separateVariants } from "@helpers/separateVariants";
 import { useStoreCart } from "@state/store";
 

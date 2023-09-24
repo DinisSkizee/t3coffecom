@@ -5,7 +5,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import { useGetShopIdQuery } from "@gql/schema";
+import { useGetShopIdQuery } from "src/gql/schema";
 
 const httpLink = new HttpLink({
   uri: `https://${process.env.NEXT_PUBLIC_DOMAIN}/account/customer/api/unstable/graphql`,
@@ -51,13 +51,12 @@ export const login = async () => {
   );
   loginUrl.searchParams.append("client_id", clientId);
   loginUrl.searchParams.append("response_type", "code");
-  loginUrl.searchParams.append(
-    "redirect_uri",
-    `http://localhost:3000/selectDrink`,
-  );
-  loginUrl.searchParams.append("state", "<state>");
-  loginUrl.searchParams.append("nonce", "<nonce>");
-  // Public client
+  loginUrl.searchParams.append("redirect_uri", `/selectDrink`);
+  const state = generateState();
+  const nonce = generateNonce(1);
+  loginUrl.searchParams.append("state", state);
+  loginUrl.searchParams.append("nonce", nonce);
+
   // eslint-disable-next-line @typescript-eslint/await-thenable
   const verifier = await generateCodeVerifier();
   const challenge = await generateCodeChallenge(verifier);
@@ -71,11 +70,11 @@ export const login = async () => {
 };
 
 // export const getAccessToken = async () => {
-//   const clientId = process.env.SHOPIFY_CUSTOMER_ACCESS_TOKEN ?? "";
+//   const clientId = process.env.CLIENT_ID!;
 //   const body = new URLSearchParams();
 //   body.append("grant_type", "authorization_code");
 //   body.append("client_id", clientId);
-//   body.append("redirect_uri", `http://localhost:3000/selectDrink`);
+//   body.append("redirect_uri", `<redirect_uri>`);
 //   body.append("code", code);
 //   // Public Client
 //   const codeVerifier = localStorage.getItem("code-verifier");
@@ -99,19 +98,8 @@ export const login = async () => {
 //     id_token: string;
 //     refresh_token: string;
 //   }
-//   const {
-//     access_token,
-//     expires_in,
-//     id_token,
-//     refresh_token,
-//   }: AccessTokenResponse = await response.json();
-
-//   return {
-//     access_token,
-//     expires_in,
-//     id_token,
-//     refresh_token,
-//   };
+//   const { access_token, expires_in, id_token, refresh_token } =
+//     await response.json();
 // };
 
 // export const refreshToken = async () => {

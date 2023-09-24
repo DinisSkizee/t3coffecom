@@ -1,4 +1,4 @@
-import { createCustomerClient } from "@lib/customer.server";
+import { createCustomerClient } from "src/app/lib/customer.server";
 
 export const handleRequest = async (request: Request): Promise<Response> => {
   try {

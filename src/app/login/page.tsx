@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+"use client";
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "@components/Header";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
-import { useGetCustomerQuery } from "@gql/schema";
-import { login } from "@lib/apollo-customer";
 
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -34,20 +33,6 @@ const CssTextField = styled(TextField)({
 });
 
 const LoginPage = () => {
-  // const { data } = useGetCustomerQuery({
-  //   variables: {
-  //     customerAccessToken:
-  //       localStorage.getItem("SHOPIFY_CUSTOMER_ACCESS_TOKEN") ?? "",
-  //   },
-  // });
-  useEffect(() => {
-    login()
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
   return (
     <>
       <Head>
@@ -104,7 +89,7 @@ const LoginPage = () => {
             </div>
             <div className="mt-[2.5rem] flex flex-col items-center gap-3">
               <Link
-                href="/login"
+                href="/api/auth/login"
                 className="flex h-[3rem] w-[80%] items-center justify-center rounded-full bg-almond-brown text-[18px] font-thin tracking-wide text-white hover:font-medium"
               >
                 Log In

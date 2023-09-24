@@ -1,4 +1,4 @@
-import { type ProductVariant } from "@hooks/useDrinkDetails";
+import { type ProductVariant } from "src/hooks/useDrinkDetails";
 import { create } from "zustand";
 import { combine, devtools, persist } from "zustand/middleware";
 

@@ -1,20 +1,18 @@
-import { type NextRouter } from "next/router";
+import { type AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface QueryProps {
   drinkName: string;
   drinkAmount: number;
-  router: NextRouter;
+  router: AppRouterInstance;
+  pathname: string;
 }
 
 export const updateQueryParams = ({
   drinkName,
   drinkAmount,
   router,
+  pathname,
 }: QueryProps) => {
-  const newQuery = { drink: drinkName, amount: drinkAmount };
-  router
-    .replace({ pathname: router.pathname, query: newQuery })
-    .catch((err) => {
-      console.log(err);
-    });
+  const newUrl = `${pathname}?drink=${drinkName}&amount=${drinkAmount}`;
+  router.replace(newUrl);
 };

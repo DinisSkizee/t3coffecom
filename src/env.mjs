@@ -9,6 +9,11 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
     SHOPIFY_STOREFRONT_ACCESS_TOKEN: z.string(),
+    AUTH0_SECRET: z.string(),
+    AUTH0_BASE_URL: z.string(),
+    AUTH0_ISSUER_BASE_URL: z.string(),
+    AUTH0_CLIENT_ID: z.string(),
+    AUTH0_CLIENT_SECRET: z.string(),
   },
 
   /**
@@ -33,6 +38,11 @@ export const env = createEnv({
     NEXT_PUBLIC_VERSION: process.env.NEXT_PUBLIC_VERSION,
     SHOPIFY_STOREFRONT_ACCESS_TOKEN:
       process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    AUTH0_SECRET: process.env.AUTH0_SECRET,
+    AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,
+    AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
+    AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+    AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
