@@ -2,19 +2,18 @@ import Head from "next/head";
 import Link from "next/link";
 import tw from "tailwind-styled-components";
 
-export const BgImage = tw.div`
-  absolute
-  h-[200%]
-  -z-10
-  w-full
-  bg-center
-  bg-pattern-background
-  bg-repeat-y
-  mix-blend-plus-lighter
-  animate-scroll-infinite
-`;
-
 export default function Index() {
+  const BgImage = tw.div`
+    absolute
+    h-[200%]
+    -z-10
+    w-full
+    bg-center
+    bg-pattern-background
+    bg-repeat-y
+    mix-blend-plus-lighter
+    animate-scroll-infinite
+  `;
   return (
     <>
       <Head>
