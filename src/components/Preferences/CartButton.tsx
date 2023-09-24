@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useAddCartLinesMutation } from "@gql/schema";
+import { useAddCartLinesMutation } from "src/gql/schema";
 import { useDrinkDetails, useStoreCart } from "@state/store";
 
 const CartButton = () => {

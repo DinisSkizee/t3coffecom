@@ -1,4 +1,5 @@
-import { useCreateCartMutation } from "@gql/schema";
+"use client";
+import { useCreateCartMutation } from "src/gql/schema";
 import { useStoreCart } from "@state/store";
 
 const useCartId = () => {

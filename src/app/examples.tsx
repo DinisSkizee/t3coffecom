@@ -3,7 +3,7 @@ import {
   useGetProductsQuery,
   useCreateCartMutation,
   useAddCartLinesMutation,
-} from "@gql/schema";
+} from "src/gql/schema";
 
 export const Examples = () => {
   const [cartId, setCartId] = useState<string | undefined>();

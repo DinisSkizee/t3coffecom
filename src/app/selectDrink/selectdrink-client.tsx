@@ -1,34 +1,29 @@
-import React from "react";
-import Head from "next/head";
-import Link from "next/link";
-import useCartId from "@hooks/getCartId";
+import { type ApolloError } from "@apollo/client";
+import Basket from "@components/Basket";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import Basket from "@components/Basket";
 import MenuItem from "@components/MenuItem";
-import BackArrow from "@components/svg/BackArrow";
 import ThinBrownLine from "@components/ThinBrownLine";
+import { type GetCartQuery, type GetProductsQuery } from "@gql/schema";
 import { uppercaseFirstLetter } from "@helpers/uppercaseFirst";
-import { useGetCartQuery, useGetProductsQuery } from "@gql/schema";
+import BackArrow from "@svg/BackArrow";
+import Head from "next/head";
+import Link from "next/link";
+import React from "react";
 
-const SelectDrink = () => {
-  const cartId = useCartId();
-  const { data: getCartData } = useGetCartQuery({
-    variables: {
-      cartId: cartId,
-    },
-  });
+interface Props {
+  productsLoading: boolean;
+  productsError: ApolloError | undefined;
+  getCartData: GetCartQuery | undefined;
+  productsData: GetProductsQuery | undefined;
+}
 
-  const {
-    data: productsData,
-    loading: productsLoading,
-    error: productsError,
-  } = useGetProductsQuery({
-    variables: {
-      first: 100,
-    },
-  });
-
+export default function SelectDrinkPage({
+  getCartData,
+  productsLoading,
+  productsError,
+  productsData,
+}: Props) {
   return (
     <>
       <Head>
@@ -69,6 +64,4 @@ const SelectDrink = () => {
       </div>
     </>
   );
-};
-
-export default SelectDrink;
+}

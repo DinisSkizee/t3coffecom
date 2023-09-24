@@ -1,6 +1,6 @@
 import { updateQueryParams } from "@helpers/updateQueryParams";
 import { useDrinkDetails } from "@state/store";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const DrinkDetails = () => {
@@ -11,6 +11,7 @@ const DrinkDetails = () => {
     drinkAmount,
     drinkPrice,
   } = useDrinkDetails();
+  const pathname = usePathname();
   const router = useRouter();
   return (
     <div className="mx-6 my-4 flex select-none flex-row">
@@ -35,6 +36,7 @@ const DrinkDetails = () => {
                   drinkName,
                   drinkAmount: drinkAmount - 1,
                   router,
+                  pathname,
                 });
               }
             }}
@@ -57,6 +59,7 @@ const DrinkDetails = () => {
                 drinkName,
                 drinkAmount: drinkAmount + 1,
                 router,
+                pathname,
               });
             }}
           >

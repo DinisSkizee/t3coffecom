@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import {
-  useAddCartLinesMutation,
-  useGetCartQuery,
-  useUpdateCartLinesMutation,
-} from "@gql/schema";
-import useCartId from "@hooks/getCartId";
+  type AddCartLinesMutationFn,
+  type GetCartQuery,
+  type UpdateCartLinesMutationFn,
+} from "src/gql/schema";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import Basket from "@components/Basket";
@@ -16,22 +15,17 @@ import BasketItem from "@components/Cart/BasketItem";
 import ThinBrownLine from "@components/ThinBrownLine";
 import CheckoutButton from "@components/Cart/CheckoutButton";
 
-const Cart = () => {
-  const cartId = useCartId();
+interface CartPageProps {
+  getCartData: GetCartQuery;
+  addCartLinesMutation: AddCartLinesMutationFn;
+  updateCartLinesMutation: UpdateCartLinesMutationFn;
+}
 
-  const { data: getCartData, refetch: refetchCartData } = useGetCartQuery({
-    variables: {
-      cartId: cartId,
-    },
-  });
-  const [updateCartLinesMutation, { data: updateData }] =
-    useUpdateCartLinesMutation();
-  const [addCartLinesMutation, { data: addData }] = useAddCartLinesMutation();
-
-  useEffect(() => {
-    void refetchCartData();
-  }, [getCartData, updateData, addData]);
-
+const CartPage = ({
+  getCartData,
+  updateCartLinesMutation,
+  addCartLinesMutation,
+}: CartPageProps) => {
   return (
     <>
       <Head>
@@ -93,4 +87,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartPage;

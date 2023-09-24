@@ -1,17 +1,33 @@
-// useDrinkVariant.tsx
-import { useEffect, useState } from "react";
-import { useGetProductsQuery } from "@gql/schema";
+"use client";
+import { useEffect, useReducer, useMemo } from "react";
+import { useGetProductsQuery } from "src/gql/schema";
 import { useDrinkDetails } from "@state/store";
 
 export interface ProductVariant {
   id: string;
   title: string;
-  price: MoneyV2;
+  price: {
+    amount: number;
+  };
 }
 
-interface MoneyV2 {
-  amount: number;
+interface State {
+  coffeeVariant?: ProductVariant;
 }
+
+interface Actions {
+  type: "setCoffeeVariant";
+  payload: ProductVariant;
+}
+
+const reducer = (state: State, action: Actions) => {
+  switch (action.type) {
+    case "setCoffeeVariant":
+      return { ...state, coffeeVariant: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const useDrinkVariant = () => {
   const {
@@ -22,61 +38,92 @@ export const useDrinkVariant = () => {
     setDrinkPrice,
     setDrinkVariant,
   } = useDrinkDetails();
-  const [coffeeVariant, setCoffeeVariant] = useState<ProductVariant>();
+
+  const [state, dispatch] = useReducer(reducer, {});
+
   const { data: productsData } = useGetProductsQuery({
     variables: {
       first: 100,
     },
   });
 
-  useEffect(() => {
-    if (!productsData || !drinkName) return;
+  const filteredVariants = useMemo(() => {
+    if (!productsData || !drinkName) return [];
 
-    const sizeMapping: Record<number, string> = {
-      0: "Small",
-      1: "Medium",
-      2: "Large",
+    const filterVariants = (variants: ProductVariant[]) => {
+      const sizeMapping: Record<number, string> = {
+        0: "Small",
+        1: "Medium",
+        2: "Large",
+      };
+
+      return variants.filter((variant) =>
+        variant.title.includes(
+          sizeMapping[drinkSize.toString() as "0" | "1" | "2"] ?? "Medium",
+        ),
+      );
     };
 
     const filteredProduct = productsData.products.edges.find(
       (edge) => edge.node.title === drinkName,
     );
 
-    const filteredVariantName = filteredProduct?.node.variants.edges.filter(
-      (variant) =>
-        variant.node.title.includes(sizeMapping[drinkSize] ?? "Medium"),
+    return filterVariants(
+      filteredProduct?.node.variants.edges.map((edge) => edge.node) ?? [],
     );
+  }, [productsData, drinkName, drinkSize]);
+
+  useEffect(() => {
+    if (!filteredVariants.length) return;
 
     const activeAdditions = Object.keys(coffeeAdditions).filter(
       (key) => coffeeAdditions[key as keyof typeof coffeeAdditions] === 1,
     );
 
-    const filteredVariant = filteredVariantName?.find((variant) => {
+    let filteredVariant: ProductVariant | undefined;
+    for (const variant of filteredVariants) {
       if (
         activeAdditions.includes("Cream") &&
         activeAdditions.includes("Vanilla")
       ) {
-        return variant.node.title.includes("Vanilla & Cream");
+        if (variant.title.includes("Vanilla & Cream")) {
+          filteredVariant = variant;
+          break;
+        }
       } else if (activeAdditions.includes("Cream")) {
-        return variant.node.title.includes("Cream");
+        if (variant.title.includes("Cream")) {
+          filteredVariant = variant;
+          break;
+        }
       } else if (activeAdditions.includes("Vanilla")) {
-        return variant.node.title.includes("Vanilla");
+        if (variant.title.includes("Vanilla")) {
+          filteredVariant = variant;
+          break;
+        }
       } else {
-        return variant.node.title.includes("Normal");
+        if (variant.title.includes("Normal")) {
+          filteredVariant = variant;
+          break;
+        }
       }
-    });
+    }
 
     if (filteredVariant) {
-      setDrinkVariant(filteredVariant.node);
-      setCoffeeVariant(filteredVariant.node);
-      setDrinkPrice(filteredVariant.node.price.amount as number);
+      const { id, title, price } = filteredVariant;
+      dispatch({
+        type: "setCoffeeVariant",
+        payload: { id, title, price: { amount: price.amount } },
+      });
+      setDrinkVariant(filteredVariant);
+      setDrinkPrice(price.amount);
     }
-  }, [productsData, drinkSize, coffeeAdditions, drinkName]);
+  }, [
+    filteredVariants,
+    coffeeAdditions,
+    drinkAmount,
+    setDrinkVariant,
+    setDrinkPrice,
+  ]);
 
-  useEffect(() => {
-    const tempDrinkPrice = coffeeVariant?.price.amount ?? 0 * drinkAmount;
-    setDrinkPrice(tempDrinkPrice);
-  }, [coffeeVariant, drinkAmount]);
-
-  return { coffeeVariant };
+  return { coffeeVariant: state.coffeeVariant };
 };

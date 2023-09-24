@@ -14,7 +14,7 @@ export const BgImage = tw.div`
   animate-scroll-infinite
 `;
 
-export default function Home() {
+export default function Index() {
   return (
     <>
       <Head>
