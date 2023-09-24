@@ -1,9 +1,14 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
+import Link from "next/link";
+import { type Metadata } from "next";
+import { useRouter } from "next/navigation";
 
-const ToDo = () => {
+export const metadata: Metadata = {
+  title: "CoffeeCom - ToDo",
+};
+
+export default function ToDo() {
   const router = useRouter();
   return (
     <Link
@@ -16,6 +21,4 @@ const ToDo = () => {
       This Page is Still In Construction
     </Link>
   );
-};
-
-export default ToDo;
+}

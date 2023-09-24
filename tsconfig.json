@@ -27,7 +27,12 @@
       "@helpers/*": ["./src/helpers/*"],
       "@svg/*": ["./src/components/svg/*"],
       "@components/*": ["./src/components/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     ".eslintrc.cjs",

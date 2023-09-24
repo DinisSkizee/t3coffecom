@@ -1,7 +1,10 @@
-import Head from "next/head";
 import Link from "next/link";
+import { type Metadata } from "next";
 import tw from "tailwind-styled-components";
 
+export const metadata: Metadata = {
+  title: "CoffeeCom",
+};
 export default function Index() {
   const BgImage = tw.div`
     absolute
@@ -16,9 +19,6 @@ export default function Index() {
   `;
   return (
     <>
-      <Head>
-        <title>CoffeeCom</title>
-      </Head>
       <div className="relative left-[50%] z-10 h-screen w-[414px] -translate-x-[50%] overflow-hidden bg-light-brown">
         <BgImage />
         <div className="min-h-screen"></div>
