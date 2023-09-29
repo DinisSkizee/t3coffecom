@@ -1,6 +1,6 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import { useGetCustomerQuery } from "@gql/schema";
+import { type GetCustomerQuery } from "@gql/schema";
 import BackArrow from "@svg/BackArrow";
 import { type Metadata } from "next";
 import Image from "next/image";
@@ -14,16 +14,9 @@ export const metadata: Metadata = {
 interface Props {
   username: string | undefined | null;
   image: string | undefined | null;
+  data: GetCustomerQuery | undefined;
 }
-export default function ProfilePage({ username, image }: Props) {
-  const customerAccessToken =
-    localStorage.getItem("customer_access_token") ?? "";
-  const { data, error } = useGetCustomerQuery({
-    variables: {
-      customerAccessToken: customerAccessToken,
-    },
-  });
-
+export default function ProfilePage({ username, image, data }: Props) {
   return (
     <div className="flex w-full justify-center">
       <div className="flex h-screen w-[414px] flex-col bg-white">
