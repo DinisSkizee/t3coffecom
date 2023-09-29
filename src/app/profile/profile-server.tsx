@@ -1,5 +1,6 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
+import { useGetCustomerQuery } from "@gql/schema";
 import BackArrow from "@svg/BackArrow";
 import { type Metadata } from "next";
 import Image from "next/image";
@@ -15,6 +16,14 @@ interface Props {
   image: string | undefined | null;
 }
 export default function ProfilePage({ username, image }: Props) {
+  const customerAccessToken =
+    localStorage.getItem("customer_access_token") ?? "";
+  const { data, error } = useGetCustomerQuery({
+    variables: {
+      customerAccessToken: customerAccessToken,
+    },
+  });
+
   return (
     <div className="flex w-full justify-center">
       <div className="flex h-screen w-[414px] flex-col bg-white">
@@ -29,6 +38,7 @@ export default function ProfilePage({ username, image }: Props) {
               Profile
             </div>
           </div>
+          {data && <p>{data.customer?.id}</p>}
           {username ? (
             <>
               <div className="mx-10 mt-10">
