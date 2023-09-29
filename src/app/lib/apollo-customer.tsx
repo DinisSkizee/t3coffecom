@@ -1,11 +1,10 @@
-import { useEffect, type PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 import {
   ApolloProvider,
   ApolloClient,
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import { useGetShopIdQuery } from "src/gql/schema";
 
 const httpLink = new HttpLink({
   uri: `https://${process.env.NEXT_PUBLIC_DOMAIN}/account/customer/api/unstable/graphql`,
@@ -14,7 +13,11 @@ const httpLink = new HttpLink({
   },
 });
 
+const userAgent =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36";
+
 export const ApolloCustomerProvider = ({ children }: PropsWithChildren) => {
+  ``;
   const client = new ApolloClient({
     link: httpLink,
     cache: new InMemoryCache(),
@@ -22,28 +25,21 @@ export const ApolloCustomerProvider = ({ children }: PropsWithChildren) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
-interface CustomerClient {
-  login: () => Promise<Response>;
+export interface CustomerClient {
   logout: () => Promise<Response>;
   authorize: (redirectPath?: string) => Promise<Response>;
   isLoggedIn: () => Promise<boolean>;
+  login: () => Promise<Response>;
   query: (
     query: string,
     variables?: any,
   ) => Promise<{ data: unknown; status: number; ok: boolean }>;
 }
 
-// export const createCustomerClient({
-//   session,
-//   customerAccountId,
-//   customerAccountUrl,
-// }) => {
-
-// }
 export const login = async () => {
-  const clientId = process.env.SHOPIFY_CUSTOMER_ACCESS_TOKEN ?? "";
+  const clientId = "shp_870062c3-6053-4ade-bb85-8c0c8d4fbdb1";
   const loginUrl = new URL(
-    `https://shopify.com/gid://shopify/Shop/81697997077/auth/oauth/authorize`,
+    `https://shopify.com/81697997077/auth/oauth/authorize`,
   );
   loginUrl.searchParams.append(
     "scope",
@@ -51,9 +47,12 @@ export const login = async () => {
   );
   loginUrl.searchParams.append("client_id", clientId);
   loginUrl.searchParams.append("response_type", "code");
-  loginUrl.searchParams.append("redirect_uri", `/selectDrink`);
+  loginUrl.searchParams.append(
+    "redirect_uri",
+    `http://localhost:3000/selectDrink`,
+  );
   const state = generateState();
-  const nonce = generateNonce(1);
+  const nonce = generateNonce(16);
   loginUrl.searchParams.append("state", state);
   loginUrl.searchParams.append("nonce", nonce);
 
@@ -67,6 +66,54 @@ export const login = async () => {
   loginUrl.searchParams.append("code_challenge_method", "S256");
 
   window.location.href = loginUrl.toString();
+};
+
+export const logout = () => {
+  const idToken = localStorage.getItem("id_token");
+
+  localStorage.removeItem("code-verifier");
+  localStorage.removeItem("customer_authorization_code_token");
+  localStorage.removeItem("expires_at");
+  localStorage.removeItem("id_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("customer_access_token");
+
+  const logoutUrl = new URL(
+    `https://shopify.com/81697997077/auth/logout?id_token_hint=${idToken}`,
+  );
+  window.location.href = logoutUrl.toString();
+};
+
+export const isLoggedIn = async () => {
+  if (!localStorage.getItem("customer_access_token")) return false;
+
+  const expiryDate = localStorage.getItem("expires_at");
+  if (expiryDate && Date.parse(expiryDate) < new Date().getTime()) {
+    try {
+      await refreshToken(
+        "shp_870062c3-6053-4ade-bb85-8c0c8d4fbdb1",
+        "https://shopify.com/81697997077",
+        origin,
+      );
+
+      return true;
+    } catch (error) {
+      if (error && (error as Response).status !== 401) {
+        throw error;
+      }
+    }
+  } else {
+    return true;
+  }
+
+  localStorage.removeItem("code-verifier");
+  localStorage.removeItem("customer_authorization_code_token");
+  localStorage.removeItem("expires_at");
+  localStorage.removeItem("id_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("customer_access_token");
+
+  return false;
 };
 
 // export const getAccessToken = async () => {
@@ -203,4 +250,119 @@ export function decodeJwt(token: string) {
     payload: decodedPayload,
     signature,
   };
+}
+
+async function refreshToken(
+  customerAccountId: string,
+  customerAccountUrl: string,
+  origin: string,
+) {
+  const newBody = new URLSearchParams();
+
+  newBody.append("grant_type", "refresh_token");
+  newBody.append("client_id", customerAccountId);
+
+  const refreshToken = localStorage.getItem("refresh_token");
+  refreshToken && newBody.append("refresh_token", refreshToken);
+
+  const headers = {
+    "content-type": "application/x-www-form-urlencoded",
+    "User-Agent": userAgent,
+    Origin: origin,
+  };
+
+  const response = await fetch(`${customerAccountUrl}/auth/oauth/token`, {
+    method: "POST",
+    headers,
+    body: newBody,
+  });
+
+  interface AccessTokenResponse {
+    access_token: string;
+    expires_in: number;
+    id_token: string;
+    refresh_token: string;
+  }
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Response(text, {
+      status: response.status,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+      },
+    });
+  }
+
+  const {
+    access_token,
+    expires_in,
+    id_token,
+    refresh_token,
+  }: AccessTokenResponse = await response.json();
+
+  localStorage.setItem("customer_authorization_code_token", access_token);
+  // Store the date in future the token expires, separated by two minutes
+  localStorage.setItem(
+    "expires_at",
+    new Date(new Date().getTime() + (expires_in - 120) * 1000)
+      .getTime()
+      .toString(),
+  );
+  localStorage.setItem("id_token", id_token);
+  localStorage.setItem("refresh_token", refresh_token);
+
+  const customerAccessToken = await exchangeAccessToken(
+    customerAccountId,
+    customerAccountUrl,
+    origin,
+  );
+
+  localStorage.setItem("customer_access_token", customerAccessToken);
+}
+
+async function exchangeAccessToken(
+  customerAccountId: string,
+  customerAccountUrl: string,
+  origin: string,
+) {
+  const clientId = customerAccountId;
+  const customerApiClientId = "30243aa5-17c1-465a-8493-944bcc4e88aa";
+  const accessToken = localStorage.getItem("customer_authorization_code_token");
+  const body = new URLSearchParams();
+
+  body.append("grant_type", "urn:ietf:params:oauth:grant-type:token-exchange");
+  body.append("client_id", clientId);
+  body.append("audience", customerApiClientId);
+  accessToken && body.append("subject_token", accessToken);
+  body.append(
+    "subject_token_type",
+    "urn:ietf:params:oauth:token-type:access_token",
+  );
+  body.append("scopes", "https://api.customers.com/auth/customer.graphql");
+
+  const headers = {
+    "content-type": "application/x-www-form-urlencoded",
+    "User-Agent": userAgent,
+    Origin: origin,
+  };
+
+  const response = await fetch(`${customerAccountUrl}/auth/oauth/token`, {
+    method: "POST",
+    headers,
+    body,
+  });
+
+  interface AccessTokenResponse {
+    access_token: string;
+    expires_in: number;
+    error?: string;
+    error_description?: string;
+  }
+
+  const data: AccessTokenResponse = await response.json();
+  if (data.error) {
+    throw new Error(data.error_description);
+  }
+  return data.access_token;
 }

@@ -1,5 +1,6 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
+import { type GetCustomerQuery } from "@gql/schema";
 import BackArrow from "@svg/BackArrow";
 import { type Metadata } from "next";
 import Image from "next/image";
@@ -13,8 +14,9 @@ export const metadata: Metadata = {
 interface Props {
   username: string | undefined | null;
   image: string | undefined | null;
+  data: GetCustomerQuery | undefined;
 }
-export default function ProfilePage({ username, image }: Props) {
+export default function ProfilePage({ username, image, data }: Props) {
   return (
     <div className="flex w-full justify-center">
       <div className="flex h-screen w-[414px] flex-col bg-white">
@@ -29,6 +31,7 @@ export default function ProfilePage({ username, image }: Props) {
               Profile
             </div>
           </div>
+          {data && <p>{data.customer?.id}</p>}
           {username ? (
             <>
               <div className="mx-10 mt-10">

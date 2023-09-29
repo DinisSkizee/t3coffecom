@@ -3112,7 +3112,7 @@ export const CurrencyCode = {
   Ved: "VED",
   /** Venezuelan Bolivares (VEF). */
   Vef: "VEF",
-  /** Venezuelan Bolivares (VES). */
+  /** Venezuelan Bolivares Soberanos (VES). */
   Ves: "VES",
   /** Vietnamese đồng (VND). */
   Vnd: "VND",
