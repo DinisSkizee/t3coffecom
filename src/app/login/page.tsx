@@ -1,12 +1,10 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { type Metadata } from "next";
 import Header from "@components/Header";
 import { CssTextField } from "../styles";
-
-export const metadata: Metadata = {
-  title: "Login",
-};
+import { login } from "@lib/apollo-customer";
 
 const LoginPage = () => {
   return (
@@ -60,12 +58,12 @@ const LoginPage = () => {
             </Link>
           </div>
           <div className="mt-[2.5rem] flex flex-col items-center gap-3">
-            <Link
-              href="/api/auth/login"
+            <button
+              onClick={login}
               className="flex h-[3rem] w-[80%] items-center justify-center rounded-full bg-almond-brown text-[18px] font-thin tracking-wide text-white hover:font-medium"
             >
               Log In
-            </Link>
+            </button>
             <div className="flex flex-row items-center gap-1 text-[18px] tracking-wide">
               <h2 className=" text-[#3E4A59] opacity-50">
                 {`Don't have an account?`}
